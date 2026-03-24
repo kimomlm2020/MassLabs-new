@@ -1,0 +1,872 @@
+// AddUser.scss - Professional, Modern, and Responsive Design
+
+// Variables
+$primary-color: #6366f1;
+$primary-hover: #4f46e5;
+$primary-light: rgba(99, 102, 241, 0.1);
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$info-color: #3b82f6;
+
+$bg-dark: #0f172a;
+$bg-card: #1e293b;
+$bg-input: #334155;
+$bg-hover: #475569;
+
+$text-primary: #f8fafc;
+$text-secondary: #94a3b8;
+$text-muted: #64748b;
+
+$border-color: #334155;
+$border-focus: #6366f1;
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 16px;
+$radius-xl: 24px;
+
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;
+
+// Mixins
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin grid($columns: 1, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+@mixin card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 12px 16px;
+  background: $bg-input;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: 14px;
+  transition: all $transition-fast;
+  
+  &::placeholder {
+    color: $text-muted;
+  }
+  
+  &:hover:not(:disabled) {
+    border-color: $bg-hover;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $border-focus;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Animations
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+// Main Styles
+.add-user-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $bg-dark 0%, #1a1f2e 100%);
+  color: $text-primary;
+  padding: 24px;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
+
+// Page Header
+.page-header {
+  margin-bottom: 32px;
+  
+  .btn-back {
+    @include flex(row, center, flex-start, 8px);
+    background: transparent;
+    border: 1px solid $border-color;
+    color: $text-secondary;
+    padding: 10px 16px;
+    border-radius: $radius-md;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    margin-bottom: 24px;
+    
+    &:hover:not(:disabled) {
+      background: $bg-card;
+      color: $text-primary;
+      border-color: $bg-hover;
+      transform: translateX(-2px);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    svg {
+      transition: transform $transition-fast;
+    }
+    
+    &:hover svg {
+      transform: translateX(-3px);
+    }
+  }
+  
+  .header-content {
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, $text-primary 0%, $text-secondary 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
+    }
+    
+    p {
+      color: $text-secondary;
+      font-size: 16px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+  }
+}
+
+// Form Wrapper
+.form-wrapper {
+  @include flex(row, flex-start, space-between, 24px);
+  max-width: 1400px;
+  
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}
+
+// User Form
+.user-form {
+  flex: 1;
+  @include flex(column, stretch, flex-start, 24px);
+}
+
+// Form Sections
+.form-section {
+  @include card;
+  padding: 28px;
+  animation: slideIn 0.4s ease forwards;
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
+  &:nth-child(2) { animation-delay: 0.1s; }
+  &:nth-child(3) { animation-delay: 0.2s; }
+  
+  .section-header {
+    @include flex(row, flex-start, flex-start, 16px);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $border-color;
+    
+    @media (max-width: 640px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: $radius-md;
+      background: $primary-light;
+      color: $primary-color;
+      @include flex(row, center, center);
+      
+      svg {
+        stroke-width: 2;
+      }
+    }
+    
+    .section-title {
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: $text-primary;
+      }
+      
+      p {
+        font-size: 14px;
+        color: $text-muted;
+      }
+    }
+  }
+}
+
+// Form Grid
+.form-grid {
+  @include grid(1, 20px);
+  
+  &.two-columns {
+    grid-template-columns: repeat(2, 1fr);
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Form Fields
+.form-field {
+  position: relative;
+  
+  label {
+    @include flex(row, center, flex-start, 6px);
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-secondary;
+    margin-bottom: 8px;
+    
+    svg {
+      color: $primary-color;
+    }
+    
+    .required {
+      color: $danger-color;
+    }
+  }
+  
+  input {
+    @include input-base;
+    
+    &.error {
+      border-color: $danger-color;
+      animation: shake 0.3s ease;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      }
+    }
+  }
+  
+  .input-wrapper {
+    position: relative;
+    
+    input {
+      padding-right: 44px;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $text-muted;
+      cursor: pointer;
+      padding: 4px;
+      @include flex(row, center, center);
+      transition: color $transition-fast;
+      
+      &:hover {
+        color: $text-primary;
+      }
+    }
+  }
+  
+  .error-message {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: $danger-color;
+    @include flex(row, center, flex-start, 4px);
+    
+    &::before {
+      content: '⚠';
+    }
+  }
+  
+  .help-text {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: $text-muted;
+  }
+  
+  // Validation states
+  &.has-error input {
+    border-color: $danger-color;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+  
+  &.is-valid input {
+    border-color: $success-color;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+  }
+}
+
+// Select Wrapper
+.select-wrapper {
+  position: relative;
+  
+  select {
+    @include input-base;
+    appearance: none;
+    padding-right: 40px;
+    cursor: pointer;
+    
+    option {
+      background: $bg-card;
+      color: $text-primary;
+    }
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $text-muted;
+    pointer-events: none;
+  }
+}
+
+// Role Badge
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.role-admin {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+  
+  &.role-moderator {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fcd34d;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+  
+  &.role-customer {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+}
+
+.role-description {
+  margin-top: 10px;
+  font-size: 13px;
+  color: $text-secondary;
+  line-height: 1.5;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: $radius-md;
+  border-left: 3px solid $primary-color;
+}
+
+// Status Options
+.status-options {
+  @include flex(column, stretch, flex-start, 12px);
+}
+
+.status-card {
+  @include flex(row, center, flex-start, 16px);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  input {
+    display: none;
+  }
+  
+  .status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid $border-color;
+    position: relative;
+    transition: all $transition-fast;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      transition: transform $transition-fast;
+    }
+    
+    &.active {
+      border-color: $success-color;
+      background: $success-color;
+    }
+    
+    &.inactive {
+      border-color: $text-muted;
+    }
+  }
+  
+  .status-content {
+    @include flex(column, flex-start, center, 2px);
+    
+    .status-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: $text-primary;
+    }
+    
+    .status-desc {
+      font-size: 12px;
+      color: $text-muted;
+    }
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: $border-color;
+  }
+  
+  &.selected {
+    background: $primary-light;
+    border-color: $primary-color;
+    
+    .status-indicator {
+      &.active::after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      
+      &.inactive {
+        border-color: $text-muted;
+        background: $text-muted;
+        
+        &::after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
+  }
+}
+
+// Form Actions
+.form-actions {
+  @include flex(row, center, flex-end, 16px);
+  padding-top: 24px;
+  margin-top: 8px;
+  
+  @media (max-width: 640px) {
+    flex-direction: column-reverse;
+    
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  button {
+    @include flex(row, center, center, 8px);
+    padding: 14px 28px;
+    border-radius: $radius-md;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border: none;
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    svg {
+      stroke-width: 2;
+    }
+    
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border-color;
+    
+    &:hover:not(:disabled) {
+      background: $bg-card;
+      color: $text-primary;
+      border-color: $bg-hover;
+    }
+  }
+  
+  .btn-primary {
+    background: $primary-color;
+    color: white;
+    box-shadow: $shadow-md;
+    
+    &:hover:not(:disabled) {
+      background: $primary-hover;
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg, $shadow-glow;
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Summary Card
+.summary-card {
+  width: 320px;
+  @include card;
+  padding: 28px;
+  position: sticky;
+  top: 24px;
+  height: fit-content;
+  
+  @media (max-width: 1024px) {
+    width: 100%;
+    position: static;
+  }
+  
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: $text-primary;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $border-color;
+  }
+  
+  .preview-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    @include flex(row, center, center);
+    margin: 0 auto 20px;
+    box-shadow: $shadow-lg;
+  }
+  
+  .preview-info {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    .preview-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+    
+    .preview-email {
+      font-size: 14px;
+      color: $text-muted;
+      margin-bottom: 12px;
+      word-break: break-word;
+    }
+    
+    .preview-badges {
+      @include flex(row, center, center, 8px);
+      flex-wrap: wrap;
+      
+      .badge {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        
+        &.role-admin {
+          background: rgba(239, 68, 68, 0.2);
+          color: #fca5a5;
+        }
+        
+        &.role-moderator {
+          background: rgba(245, 158, 11, 0.2);
+          color: #fcd34d;
+        }
+        
+        &.role-customer {
+          background: rgba(16, 185, 129, 0.2);
+          color: #6ee7b7;
+        }
+        
+        &.status-active {
+          background: rgba(16, 185, 129, 0.2);
+          color: #6ee7b7;
+        }
+        
+        &.status-inactive {
+          background: rgba(100, 116, 139, 0.2);
+          color: $text-muted;
+        }
+      }
+    }
+  }
+  
+  .preview-permissions {
+    h5 {
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      
+      li {
+        font-size: 13px;
+        color: $text-secondary;
+        padding: 6px 0;
+        @include flex(row, center, flex-start, 8px);
+        
+        &::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: $success-color;
+        }
+        
+        &[class*="no-access"] {
+          color: $text-muted;
+          
+          &::before {
+            background: $text-muted;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Toast Notifications Customization
+:global {
+  .Toastify__toast {
+    background: $bg-card;
+    color: $text-primary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    
+    &--success {
+      border-left: 4px solid $success-color;
+    }
+    
+    &--error {
+      border-left: 4px solid $danger-color;
+    }
+  }
+  
+  .Toastify__toast-body {
+    font-size: 14px;
+  }
+  
+  .Toastify__close-button {
+    color: $text-secondary;
+    
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 1280px) {
+  .form-wrapper {
+    gap: 20px;
+  }
+  
+  .summary-card {
+    width: 280px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .add-user-page {
+    padding: 20px;
+  }
+  
+  .form-wrapper {
+    flex-direction: column;
+  }
+  
+  .summary-card {
+    width: 100%;
+    order: -1;
+    position: static;
+    margin-bottom: 24px;
+    
+    .preview-permissions {
+      display: none; // Hide on mobile to save space
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    .header-content {
+      h1 {
+        font-size: 22px;
+      }
+      
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  .form-section {
+    padding: 20px 16px;
+    
+    .section-header {
+      .section-icon {
+        width: 40px;
+        height: 40px;
+        
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      
+      .section-title {
+        h3 {
+          font-size: 16px;
+        }
+        
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  
+  .form-actions {
+    padding-top: 20px;
+    
+    button {
+      padding: 12px 20px;
+      font-size: 13px;
+    }
+  }
+}
+
+// Dark mode enhancements
+@media (prefers-color-scheme: dark) {
+  .add-user-page {
+    background: linear-gradient(135deg, #0a0e1a 0%, #121829 100%);
+  }
+}
+
+// Print styles
+@media print {
+  .add-user-page {
+    background: white;
+    color: black;
+  }
+  
+  .btn-back,
+  .form-actions,
+  .summary-card {
+    display: none;
+  }
+}

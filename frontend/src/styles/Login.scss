@@ -1,0 +1,299 @@
+// Variables (inchangées)
+$dark-base: #212121;
+$dark-secondary: #1a1a1a;
+$gold-primary: #F2CC0F;
+$text-primary: #ffffff;
+$text-secondary: #e0e0e0;
+$text-muted: #a0a0a0;
+$error: #ef4444;
+$border-medium: #404040;
+
+// ============================================
+// PAGE LOGIN (wrapper global)
+// ============================================
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $dark-base;
+}
+
+// ============================================
+// CONTENEUR CENTRAL
+// ============================================
+.login-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+// ============================================
+// FORMULAIRE (carte)
+// ============================================
+.login-form {
+  width: 100%;
+  max-width: 420px;
+  background: $dark-secondary;
+  border-radius: 16px;
+  padding: 2.5rem;
+  border: 1px solid rgba($gold-primary, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  margin-top: 4rem;
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+}
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $gold-primary;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, $gold-primary 0%, lighten($gold-primary, 15%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+}
+
+.form-subtitle {
+  color: $text-secondary;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+// ============================================
+// GROUPES DE CHAMPS
+// ============================================
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid $border-medium;
+    border-radius: 8px;
+    color: $text-primary;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $gold-primary;
+      box-shadow: 0 0 0 3px rgba($gold-primary, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Groupe spécial pour le mot de passe
+.password-group {
+  .password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      padding-right: 48px; // espace pour le bouton
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      color: $text-muted;
+      font-size: 1.25rem; // pour l'emoji
+
+      &:hover {
+        color: $gold-primary;
+        background: rgba($gold-primary, 0.1);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $gold-primary;
+        outline-offset: 2px;
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// ============================================
+// OPTIONS (remember me / mot de passe oublié)
+// ============================================
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-secondary;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: $gold-primary;
+  }
+}
+
+// ============================================
+// BOUTONS
+// ============================================
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, $gold-primary 0%, darken($gold-primary, 10%) 100%);
+  color: #121212;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($gold-primary, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.btn-large {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+  }
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  color: $text-secondary;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $gold-primary;
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.btn-gold-text {
+    color: $gold-primary;
+    font-weight: 600;
+  }
+}
+
+// ============================================
+// ACTIONS DU FORMULAIRE (bouton principal)
+// ============================================
+.form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .btn-gold {
+    width: 100%;
+  }
+}
+
+// ============================================
+// LIEN DE BASCULE (entre connexion/inscription)
+// ============================================
+.form-switch {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-secondary;
+  font-size: 0.95rem;
+
+  .btn-text {
+    color: $gold-primary;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================
+// MESSAGES D'ERREUR (optionnel)
+// ============================================
+.form__error {
+  color: $error;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,286 @@
+
+// 1. Variables (doit être en premier)
+@import './styles/variables';
+
+// 2. Mixins (dépend des variables)
+@import './styles/mixins';
+
+// 3. Layout de base (sidebar, navbar, structure)
+@import './styles/layout';
+
+// 4. Pages spécifiques
+@import './styles/dashboard';
+@import './styles/orders';
+@import './styles/OrderDetails';
+@import './styles/products';
+@import './styles/ProductForm';
+@import './styles/users';
+@import './styles/UserDetails';
+@import './styles/settings';
+// ==========================================
+// STYLES GLOBAUX SUPPLÉMENTAIRES
+// ==========================================
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: $bg-primary;
+  color: $text-primary;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+// Application Admin
+.admin-app {
+  min-height: 100vh;
+  display: flex;
+}
+
+.admin-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: $sidebar-width;
+  min-height: 100vh;
+  transition: margin-left $transition-base;
+
+  @media (max-width: $bp-lg) {
+    margin-left: $sidebar-collapsed;
+  }
+
+  @media (max-width: $bp-md) {
+    margin-left: 0;
+  }
+
+  // Quand la sidebar est fermée
+  .sidebar-closed & {
+    margin-left: $sidebar-collapsed;
+  }
+}
+
+.admin-content {
+  flex: 1;
+  margin-top: $navbar-height;
+  padding: $space-xl;
+  background: $bg-primary;
+  min-height: calc(100vh - #{$navbar-height});
+  overflow-x: hidden;
+
+  @media (max-width: $bp-xl) {
+    padding: $space-lg;
+  }
+
+  @media (max-width: $bp-md) {
+    padding: $space-md;
+    margin-top: $navbar-height;
+  }
+
+  @media (max-width: $bp-sm) {
+    padding: $space-sm;
+  }
+}
+
+// Page container centré
+.page-wrapper {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+
+  // Variantes de taille
+  &.size-small {
+    max-width: 800px;
+  }
+
+  &.size-medium {
+    max-width: 1200px;
+  }
+
+  &.size-large {
+    max-width: 1600px;
+  }
+
+  &.size-full {
+    max-width: 100%;
+  }
+}
+
+// ==========================================
+// ANIMATIONS GLOBALES
+// ==========================================
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+}
+
+@keyframes spin {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+// ==========================================
+// UTILITAIRES
+// ==========================================
+
+.text-primary { color: $text-primary; }
+.text-secondary { color: $text-secondary; }
+.text-muted { color: $text-muted; }
+.text-success { color: $success; }
+.text-warning { color: $warning; }
+.text-danger { color: $danger; }
+.text-info { color: $info; }
+
+.bg-primary { background: $bg-primary; }
+.bg-secondary { background: $bg-secondary; }
+.bg-tertiary { background: $bg-tertiary; }
+
+// Utilitaires de visibilité
+.hide-mobile {
+  @media (max-width: $bp-md - 1px) {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @media (max-width: $bp-lg - 1px) and (min-width: $bp-md) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: $bp-lg) {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none !important;
+  
+  @media (max-width: $bp-md - 1px) {
+    display: block !important;
+  }
+}
+
+// ==========================================
+// PAGE 404
+// ==========================================
+
+.error-404 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $space-xl;
+
+  h1 {
+    font-size: 120px;
+    font-weight: 700;
+    color: $primary;
+    line-height: 1;
+    margin-bottom: $space-md;
+
+    @media (max-width: $bp-md) {
+      font-size: 80px;
+    }
+  }
+
+  p {
+    font-size: $font-xl;
+    color: $text-secondary;
+    margin-bottom: $space-xl;
+
+    @media (max-width: $bp-md) {
+      font-size: $font-lg;
+    }
+  }
+
+  a {
+    @include button-primary;
+    text-decoration: none;
+  }
+}
+
+// ==========================================
+// ACCESSIBILITÉ
+// ==========================================
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Focus visible pour accessibilité
+:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+// ==========================================
+// SÉLECTION
+// ==========================================
+
+::selection {
+  background: rgba($primary, 0.3);
+  color: $text-primary;
+}

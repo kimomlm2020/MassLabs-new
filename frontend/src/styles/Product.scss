@@ -1,0 +1,1110 @@
+// ==================== PRODUCT PAGE - DARK/GOLD THEME ====================
+$dark-bg: #0a0a0a;
+$darker-bg: #050505;
+$dark-card: #111111;
+$dark-border: #1a1a1a;
+$dark-text: #e0e0e0;
+$dark-text-secondary: #a0a0a0;
+
+$gold-primary: #FFD700;
+$gold-secondary: #FFED4E;
+$gold-accent: #C9A227;
+$gold-glow: rgba(255, 215, 0, 0.3);
+
+$gradient-gold: linear-gradient(135deg, #e4ce55f8 0%, #FFED4E 50%, #C9A227);
+$gradient-dark: linear-gradient(135deg, #111111 0%, #1a1a1a 50%, #0a0a0a);
+
+$shadow-glow: 0 0 20px rgba(255, 215, 0, 0.2);
+$shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+// Breakpoints
+$mobile-xs: 360px;
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$wide: 1400px;
+
+// ==================== MIXINS ====================
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile-xs {
+    @media (max-width: #{$mobile-xs}) { @content; }
+  } @else if $breakpoint == mobile {
+    @media (max-width: #{$mobile}) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (max-width: #{$tablet}) { @content; }
+  } @else if $breakpoint == desktop {
+    @media (max-width: #{$desktop}) { @content; }
+  } @else if $breakpoint == wide {
+    @media (min-width: #{$wide}) { @content; }
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin gold-gradient-text {
+  background: $gradient-gold;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ==================== ANIMATIONS ====================
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+// ==================== LOADING & ERROR STATES ====================
+.product-page {
+  min-height: 100vh;
+  background: $dark-bg;
+  color: $dark-text;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  .product-loading,
+  .product-not-found {
+    @include flex-center;
+    flex-direction: column;
+    min-height: 60vh;
+    padding: clamp(20px, 5vw, 40px);
+    text-align: center;
+
+    .spinner {
+      width: clamp(40px, 10vw, 50px);
+      height: clamp(40px, 10vw, 50px);
+      border: 4px solid $dark-border;
+      border-top-color: $gold-primary;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: $dark-text-secondary;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    }
+
+    h2 {
+      color: $gold-primary;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .btn-primary {
+      padding: clamp(10px, 3vw, 12px) clamp(20px, 5vw, 30px);
+      background: $gradient-gold;
+      color: $dark-bg;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-glow;
+      }
+    }
+  }
+}
+
+// ==================== MAIN CONTAINER ====================
+.product-container {
+  max-width: min(1400px, 98%);
+  margin: 0 auto;
+  padding: clamp(15px, 3vw, 30px) clamp(10px, 2vw, 20px);
+  animation: fade-in 0.5s ease;
+}
+
+// ==================== BREADCRUMB ====================
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.5vw, 10px);
+  margin-bottom: clamp(20px, 4vw, 30px);
+  padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 20px);
+  background: $dark-card;
+  border-radius: 8px;
+  border: 1px solid $dark-border;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  flex-wrap: wrap;
+  padding-top: 80px;
+
+  span {
+    color: $dark-text-secondary;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+
+    &:hover:not(.current) {
+      color: $gold-primary;
+    }
+
+    &.current {
+      color: $gold-primary;
+      font-weight: 600;
+      cursor: default;
+    }
+  }
+}
+
+// ==================== PRODUCT MAIN SECTION ====================
+.product-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 4vw, 50px);
+  margin-bottom: clamp(30px, 5vw, 50px);
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 3vw, 30px);
+  }
+}
+
+// ==================== PRODUCT GALLERY ====================
+.product-gallery {
+  .main-image {
+    position: relative;
+    background: $dark-card;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid $dark-border;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    aspect-ratio: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: clamp(10px, 2vw, 20px);
+      left: clamp(10px, 2vw, 20px);
+      padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2vw, 16px);
+      background: $gradient-gold;
+      color: $dark-bg;
+      font-weight: 700;
+      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+      text-transform: uppercase;
+      border-radius: 6px;
+      box-shadow: $shadow-dark;
+      z-index: 2;
+
+      &.out-of-stock {
+        background: #ff4757;
+        color: white;
+      }
+
+      &.new {
+        background: #2196F3;
+        color: white;
+      }
+    }
+  }
+
+  .thumbnail-list {
+    display: flex;
+    gap: clamp(8px, 2vw, 12px);
+    overflow-x: auto;
+    padding-bottom: 10px;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $darker-bg;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $gold-accent;
+      border-radius: 3px;
+    }
+
+    .thumbnail {
+      flex-shrink: 0;
+      width: clamp(60px, 15vw, 80px);
+      height: clamp(60px, 15vw, 80px);
+      border: 2px solid $dark-border;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: $dark-card;
+      padding: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:hover {
+        border-color: $gold-accent;
+      }
+
+      &.active {
+        border-color: $gold-primary;
+        box-shadow: 0 0 0 3px $gold-glow;
+      }
+    }
+  }
+}
+
+// ==================== PRODUCT INFO ====================
+.product-info {
+  .product-header {
+    margin-bottom: clamp(20px, 4vw, 25px);
+
+    .product-category {
+      display: inline-block;
+      padding: clamp(4px, 1vw, 6px) clamp(10px, 2vw, 14px);
+      background: rgba(255, 215, 0, 0.1);
+      color: $gold-primary;
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 6px;
+      margin-bottom: clamp(10px, 2vw, 15px);
+    }
+
+    .product-name {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: $dark-text;
+      margin-bottom: clamp(10px, 2vw, 15px);
+      line-height: 1.2;
+    }
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 2vw, 12px);
+    flex-wrap: wrap;
+
+    .stars {
+      display: flex;
+      gap: 3px;
+
+      span {
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
+        color: $dark-border;
+
+        &.filled {
+          color: $gold-primary;
+          text-shadow: 0 0 10px $gold-glow;
+        }
+      }
+    }
+
+    .rating-text {
+      color: $dark-text-secondary;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+  }
+}
+
+// ==================== PRODUCT PRICE ====================
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 15px);
+  margin-bottom: clamp(20px, 4vw, 25px);
+  padding-bottom: clamp(20px, 4vw, 25px);
+  border-bottom: 1px solid $dark-border;
+  flex-wrap: wrap;
+
+  .current-price {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    font-weight: 800;
+    @include gold-gradient-text;
+
+    @include respond-to(mobile) {
+      font-size: clamp(1.6rem, 7vw, 2rem);
+    }
+  }
+
+  .old-price {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: $dark-text-secondary;
+    text-decoration: line-through;
+  }
+}
+
+// ==================== PRODUCT DESCRIPTION ====================
+.product-short-desc {
+  color: $dark-text-secondary;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.7;
+  margin-bottom: clamp(20px, 4vw, 25px);
+}
+
+// ==================== VARIANT SELECTION ====================
+.variant-selection {
+  margin-bottom: clamp(20px, 4vw, 25px);
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: $dark-text;
+    margin-bottom: clamp(10px, 2vw, 12px);
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
+  }
+
+  .variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 10px);
+
+    .variant-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(10px, 2.5vw, 12px) clamp(15px, 3vw, 20px);
+      background: $darker-bg;
+      border: 2px solid $dark-border;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: clamp(80px, 20vw, 100px);
+      flex: 1;
+
+      @include respond-to(mobile) {
+        min-width: calc(50% - 5px);
+      }
+
+      .variant-name {
+        font-weight: 600;
+        color: $dark-text;
+        font-size: clamp(0.85rem, 2vw, 0.9rem);
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      .variant-price {
+        color: $gold-primary;
+        font-weight: 700;
+        font-size: clamp(0.9rem, 2vw, 0.95rem);
+      }
+
+      &:hover {
+        border-color: $gold-accent;
+        transform: translateY(-2px);
+      }
+
+      &.selected {
+        border-color: $gold-primary;
+        background: rgba(255, 215, 0, 0.1);
+        box-shadow: $shadow-glow;
+      }
+    }
+  }
+}
+
+// ==================== QUANTITY SELECTOR ====================
+.quantity-selector {
+  margin-bottom: clamp(20px, 4vw, 25px);
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: $dark-text;
+    margin-bottom: clamp(10px, 2vw, 12px);
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
+  }
+
+  .quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    background: $darker-bg;
+    border-radius: 10px;
+    border: 1px solid $dark-border;
+    overflow: hidden;
+
+    button {
+      width: clamp(40px, 10vw, 45px);
+      height: clamp(40px, 10vw, 45px);
+      background: transparent;
+      border: none;
+      color: $dark-text;
+      font-size: clamp(1.3rem, 3vw, 1.5rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      @include flex-center;
+
+      &:hover:not(:disabled) {
+        background: $gold-primary;
+        color: $dark-bg;
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      width: clamp(50px, 12vw, 60px);
+      text-align: center;
+      font-weight: 700;
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      color: $dark-text;
+    }
+  }
+
+  .stock-warning {
+    display: block;
+    margin-top: 10px;
+    color: #ff6b6b;
+    font-size: clamp(0.85rem, 2vw, 0.9rem);
+    font-weight: 600;
+    animation: pulse 2s infinite;
+  }
+
+  .in-cart-qty {
+    display: inline-block;
+    margin-left: clamp(10px, 2vw, 15px);
+    padding: clamp(4px, 1vw, 5px) clamp(8px, 2vw, 12px);
+    background: rgba(255, 215, 0, 0.1);
+    color: $gold-primary;
+    font-size: clamp(0.8rem, 1.8vw, 0.85rem);
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid $gold-primary;
+  }
+}
+
+// ==================== ACTION BUTTONS ====================
+.product-actions {
+  display: flex;
+  gap: clamp(10px, 2vw, 15px);
+  margin-bottom: clamp(25px, 5vw, 30px);
+  flex-wrap: wrap;
+
+  @include respond-to(mobile) {
+    flex-direction: column;
+  }
+
+  .add-to-cart-btn,
+  .buy-now-btn {
+    flex: 1;
+    padding: clamp(14px, 3vw, 18px) clamp(20px, 4vw, 30px);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    min-width: 140px;
+
+    @include respond-to(mobile) {
+      width: 100%;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .add-to-cart-btn {
+    background: $darker-bg;
+    color: $gold-primary;
+    border: 2px solid $gold-primary;
+
+    &:hover:not(.in-cart):not(:disabled) {
+      background: $gold-primary;
+      color: $dark-bg;
+      box-shadow: $shadow-glow;
+    }
+
+    &.in-cart {
+      background: #4CAF50;
+      color: white;
+      border-color: #4CAF50;
+      cursor: default;
+    }
+  }
+
+  .buy-now-btn {
+    background: $gradient-gold;
+    color: $dark-bg;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+  }
+}
+
+// ==================== TRUST BADGES ====================
+.trust-badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 2vw, 15px);
+  margin-bottom: clamp(25px, 5vw, 30px);
+  padding: clamp(15px, 3vw, 20px);
+  background: $dark-card;
+  border-radius: 12px;
+  border: 1px solid $dark-border;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .badge {
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+    gap: clamp(6px, 1.5vw, 8px);
+
+    .icon {
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+    }
+
+    span:last-child {
+      font-size: clamp(0.75rem, 1.8vw, 0.8rem);
+      color: $dark-text-secondary;
+      font-weight: 500;
+    }
+  }
+}
+
+// ==================== PRODUCT META ====================
+.product-meta {
+  padding-top: clamp(20px, 4vw, 25px);
+  border-top: 1px solid $dark-border;
+
+  .meta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: clamp(8px, 2vw, 10px) 0;
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
+    border-bottom: 1px solid $dark-border;
+    gap: 10px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span:first-child {
+      color: $dark-text-secondary;
+      flex-shrink: 0;
+    }
+
+    span:last-child {
+      color: $dark-text;
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .in-stock {
+      color: #4CAF50 !important;
+      font-weight: 700;
+    }
+
+    .out-of-stock {
+      color: #ff4757 !important;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// ==================== PRODUCT TABS ====================
+.product-tabs {
+  margin-bottom: clamp(30px, 5vw, 50px);
+
+  .tabs-header {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid $dark-border;
+    margin-bottom: clamp(20px, 4vw, 30px);
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    button {
+      padding: clamp(12px, 3vw, 15px) clamp(20px, 4vw, 30px);
+      background: transparent;
+      border: none;
+      color: $dark-text-secondary;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      white-space: nowrap;
+      flex-shrink: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: $gold-primary;
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: $dark-text;
+      }
+
+      &.active {
+        color: $gold-primary;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .tabs-content {
+    background: $dark-card;
+    border-radius: 16px;
+    padding: clamp(20px, 4vw, 40px);
+    border: 1px solid $dark-border;
+
+    @include respond-to(mobile) {
+      padding: clamp(15px, 3vw, 25px) clamp(12px, 3vw, 20px);
+    }
+  }
+}
+
+// ==================== TAB PANELS ====================
+.tab-panel {
+  animation: fade-in 0.4s ease;
+
+  h3 {
+    color: $gold-primary;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    margin-bottom: clamp(15px, 3vw, 20px);
+    padding-bottom: clamp(10px, 2vw, 15px);
+    border-bottom: 1px solid $dark-border;
+  }
+
+  h4 {
+    color: $gold-secondary;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    margin: clamp(20px, 4vw, 25px) 0 clamp(12px, 2.5vw, 15px);
+  }
+
+  p {
+    color: $dark-text-secondary;
+    line-height: 1.8;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: clamp(8px, 2vw, 10px) 0;
+      padding-left: clamp(25px, 5vw, 30px);
+      position: relative;
+      color: $dark-text-secondary;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $gold-primary;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// ==================== SPECS TABLE ====================
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: clamp(20px, 4vw, 25px);
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+
+  tr {
+    border-bottom: 1px solid $dark-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  td {
+    padding: clamp(12px, 2.5vw, 15px) clamp(15px, 3vw, 20px);
+    color: $dark-text-secondary;
+
+    &:first-child {
+      font-weight: 600;
+      color: $dark-text;
+      width: 40%;
+    }
+
+    @include respond-to(mobile) {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+
+      &:first-child {
+        padding-bottom: 5px;
+        color: $gold-primary;
+      }
+
+      &:last-child {
+        padding-top: 0;
+      }
+    }
+  }
+
+  @include respond-to(mobile) {
+    tr {
+      display: block;
+      padding: 15px 0;
+    }
+  }
+}
+
+.certificate-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(10px, 2.5vw, 12px) clamp(20px, 4vw, 25px);
+  background: rgba(255, 215, 0, 0.1);
+  color: $gold-primary;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid $gold-primary;
+  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  flex-wrap: wrap;
+
+  &:hover {
+    background: $gold-primary;
+    color: $dark-bg;
+  }
+}
+
+// ==================== REVIEWS PANEL ====================
+.reviews-panel {
+  .reviews-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(25px, 5vw, 30px);
+    padding-bottom: clamp(25px, 5vw, 30px);
+    border-bottom: 1px solid $dark-border;
+    flex-wrap: wrap;
+    gap: clamp(15px, 3vw, 20px);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .average-rating {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 2vw, 15px);
+      flex-wrap: wrap;
+
+      @include respond-to(mobile) {
+        justify-content: center;
+      }
+
+      .big-rating {
+        font-size: clamp(2.5rem, 7vw, 3rem);
+        font-weight: 800;
+        color: $gold-primary;
+      }
+
+      .stars {
+        display: flex;
+        gap: 3px;
+
+        span {
+          font-size: clamp(1rem, 2.5vw, 1.2rem);
+          color: $dark-border;
+
+          &.filled {
+            color: $gold-primary;
+          }
+        }
+      }
+
+      span:last-child {
+        color: $dark-text-secondary;
+        font-size: clamp(0.85rem, 2vw, 0.9rem);
+      }
+    }
+
+    .write-review-btn {
+      padding: clamp(10px, 2.5vw, 12px) clamp(20px, 4vw, 25px);
+      background: transparent;
+      color: $gold-primary;
+      border: 2px solid $gold-primary;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      &:hover {
+        background: $gold-primary;
+        color: $dark-bg;
+      }
+    }
+  }
+
+  .review-form {
+    background: $darker-bg;
+    padding: clamp(20px, 4vw, 25px);
+    border-radius: 12px;
+    margin-bottom: clamp(25px, 5vw, 30px);
+    border: 1px solid $dark-border;
+
+    .rating-input {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: $dark-text;
+        font-weight: 600;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+      }
+
+      select {
+        padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 15px);
+        background: $dark-card;
+        border: 1px solid $dark-border;
+        border-radius: 6px;
+        color: $dark-text;
+        cursor: pointer;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+
+        &:focus {
+          outline: none;
+          border-color: $gold-primary;
+        }
+      }
+    }
+
+    textarea {
+      width: 100%;
+      padding: clamp(12px, 2.5vw, 15px);
+      background: $dark-card;
+      border: 1px solid $dark-border;
+      border-radius: 8px;
+      color: $dark-text;
+      resize: vertical;
+      margin-bottom: 15px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      &:focus {
+        outline: none;
+        border-color: $gold-primary;
+      }
+    }
+
+    .submit-review-btn {
+      padding: clamp(10px, 2.5vw, 12px) clamp(25px, 5vw, 30px);
+      background: $gradient-gold;
+      color: $dark-bg;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-glow;
+      }
+    }
+  }
+
+  .reviews-list {
+    .no-reviews {
+      text-align: center;
+      color: $dark-text-secondary;
+      padding: clamp(30px, 6vw, 40px);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    .review-item {
+      padding: clamp(20px, 4vw, 25px) 0;
+      border-bottom: 1px solid $dark-border;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .reviewer-name {
+          font-weight: 700;
+          color: $gold-primary;
+          font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .review-date {
+          color: $dark-text-secondary;
+          font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+        }
+      }
+
+      .review-rating {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 10px;
+
+        span {
+          font-size: clamp(1rem, 2.5vw, 1.2rem);
+          color: $dark-border;
+
+          &.filled {
+            color: $gold-primary;
+          }
+        }
+      }
+
+      .review-comment {
+        color: $dark-text-secondary;
+        line-height: 1.6;
+        margin: 0;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+      }
+    }
+  }
+}
+
+// ==================== SHIPPING PANEL ====================
+.shipping-panel {
+  ul {
+    margin-bottom: clamp(20px, 4vw, 25px);
+
+    li {
+      padding: clamp(10px, 2vw, 12px) 0;
+      color: $dark-text;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      strong {
+        color: $gold-primary;
+      }
+    }
+  }
+
+  .shipping-note {
+    padding: clamp(15px, 3vw, 20px);
+    background: rgba(255, 215, 0, 0.05);
+    border-left: 4px solid $gold-primary;
+    border-radius: 0 8px 8px 0;
+    color: $dark-text-secondary;
+    line-height: 1.6;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+
+    strong {
+      color: $gold-primary;
+    }
+  }
+}
+
+// ==================== STORAGE INFO ====================
+.storage-info {
+  margin-top: clamp(20px, 4vw, 25px);
+  padding: clamp(15px, 3vw, 20px);
+  background: rgba(255, 107, 107, 0.05);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  border-radius: 8px;
+
+  h4 {
+    color: #ff6b6b;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// ==================== PRINT STYLES ====================
+@media print {
+  .product-page {
+    background: white;
+    color: black;
+
+    .product-tabs,
+    .product-actions,
+    .trust-badges {
+      display: none;
+    }
+
+    .product-container {
+      max-width: 100%;
+    }
+  }
+}
+
+// ==================== REDUCED MOTION ====================
+@media (prefers-reduced-motion: reduce) {
+  .product-page * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

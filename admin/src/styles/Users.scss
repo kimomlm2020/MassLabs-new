@@ -1,0 +1,898 @@
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+
+
+.users-page {
+  padding: $space-md;
+
+  @media (min-width: $bp-md) {
+    padding: $space-lg;
+  }
+
+  @media (min-width: $bp-xl) {
+    padding: $space-xl;
+  }
+
+  // Header Section
+  .users-header {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    margin-bottom: $space-lg;
+
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      h1 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        margin: 0 0 $space-xs 0;
+        color: $text-primary;
+      }
+
+      p {
+        font-size: $font-sm;
+        color: $text-muted;
+        margin: 0;
+      }
+    }
+
+    .btn-add-user {
+      @include flex(center, center, $space-sm);
+      padding: $space-sm $space-md;
+      background: $primary;
+      color: $bg-primary;
+      border: none;
+      border-radius: $radius-md;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition-fast;
+      width: 100%;
+      min-height: 44px; // Touch-friendly
+
+      @media (min-width: $bp-sm) {
+        width: auto;
+      }
+
+      &:hover {
+        background: darken($primary, 10%);
+      }
+    }
+  }
+
+  // Stats Grid - Mobile First: 1 column → 2 columns → 4 columns
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-md;
+    margin-bottom: $space-xl;
+
+    @media (min-width: $bp-sm) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $space-md;
+    }
+
+    @media (min-width: $bp-lg) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-lg;
+    }
+
+    .stat-card {
+      @include card;
+      padding: $space-md;
+      @include flex(center, flex-start, $space-md);
+
+      @media (min-width: $bp-md) {
+        padding: $space-lg;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        background: $bg-tertiary;
+        border-radius: $radius-md;
+        @include flex(center, center);
+        color: $primary;
+        flex-shrink: 0;
+
+        @media (min-width: $bp-md) {
+          width: 50px;
+          height: 50px;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+
+          @media (min-width: $bp-md) {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+
+      .stat-content {
+        min-width: 0; // Prevent flex item overflow
+
+        h3 {
+          font-size: $font-xs;
+          color: $text-muted;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin: 0 0 $space-xs 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .stat-value {
+          font-size: clamp(1.25rem, 3vw, 1.5rem);
+          font-weight: 700;
+          color: $text-primary;
+          margin-bottom: $space-2xs;
+        }
+
+        .stat-trend {
+          font-size: $font-xs;
+          color: $success;
+
+          &.negative {
+            color: $danger;
+          }
+        }
+      }
+    }
+  }
+
+  // Filters Section
+  .filters-section {
+    margin-bottom: $space-lg;
+
+    .filters-row {
+      display: flex;
+      flex-direction: column;
+      gap: $space-sm;
+
+      @media (min-width: $bp-md) {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: $space-md;
+      }
+
+      .search-box {
+        @include flex(center, flex-start, $space-sm);
+        width: 100%;
+        background: $bg-secondary;
+        border: 1px solid $border-color;
+        border-radius: $radius-md;
+        padding: 0 $space-md;
+
+        @media (min-width: $bp-md) {
+          flex: 1;
+          min-width: 280px;
+          max-width: 400px;
+        }
+
+        input {
+          @include input-base;
+          border: none;
+          padding: $space-sm 0;
+          background: transparent;
+          width: 100%;
+          min-height: 44px; // Touch-friendly
+        }
+      }
+
+      .filters-group {
+        display: flex;
+        flex-direction: column;
+        gap: $space-sm;
+        width: 100%;
+
+        @media (min-width: $bp-sm) {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: $bp-md) {
+          display: flex;
+          flex-direction: row;
+          width: auto;
+        }
+
+        select,
+        .btn-filter {
+          @include input-base;
+          cursor: pointer;
+          min-height: 44px; // Touch-friendly
+          width: 100%;
+
+          @media (min-width: $bp-md) {
+            width: auto;
+          }
+        }
+
+        .btn-filter {
+          @include flex(center, center, $space-xs);
+          background: $bg-secondary;
+
+          @media (min-width: $bp-md) {
+            padding: $space-sm $space-md;
+          }
+
+          &:hover {
+            background: $bg-tertiary;
+          }
+        }
+      }
+    }
+  }
+
+  // Table Section - Desktop Table + Mobile Cards
+  .table-section {
+    // Desktop Table (hidden on mobile)
+    .table-container {
+      display: none;
+      background: $bg-secondary;
+      border: 1px solid $border-color;
+      border-radius: $radius-lg;
+      overflow: hidden;
+      margin-bottom: $space-lg;
+
+      @media (min-width: $bp-lg) {
+        display: block;
+      }
+
+      @include scrollbar;
+
+      // Enable horizontal scroll on smaller desktop screens
+      @media (min-width: $bp-lg) and (max-width: $bp-xl - 1px) {
+        overflow-x: auto;
+
+        table {
+          min-width: 900px;
+        }
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: $font-sm;
+
+        th {
+          background: $bg-primary;
+          padding: $space-md;
+          text-align: left;
+          font-size: $font-xs;
+          text-transform: uppercase;
+          color: $text-muted;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          border-bottom: 1px solid $border-color;
+          white-space: nowrap;
+        }
+
+        td {
+          padding: $space-md;
+          border-top: 1px solid $border-color;
+          vertical-align: middle;
+        }
+
+        .checkbox {
+          width: 18px;
+          height: 18px;
+          accent-color: $primary;
+          cursor: pointer;
+          min-width: 18px; // Prevent shrinking
+        }
+
+        .user-cell {
+          @include flex(center, flex-start, $space-sm);
+          min-width: 0;
+
+          .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+
+            @media (min-width: $bp-xl) {
+              width: 40px;
+              height: 40px;
+            }
+          }
+
+          .user-info {
+            min-width: 0;
+
+            .user-name {
+              font-weight: 500;
+              color: $text-primary;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 150px;
+
+              @media (min-width: $bp-xl) {
+                max-width: 200px;
+              }
+            }
+
+            .user-id {
+              font-size: $font-xs;
+              color: $text-muted;
+            }
+          }
+        }
+
+        .contact-cell {
+          min-width: 0;
+
+          .contact-item {
+            @include flex(center, flex-start, $space-xs);
+            margin-bottom: $space-2xs;
+            font-size: $font-xs;
+            color: $text-secondary;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+
+            svg {
+              color: $text-muted;
+              flex-shrink: 0;
+              width: 14px;
+              height: 14px;
+            }
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        .role-cell {
+          @include flex(center, flex-start, $space-xs);
+          text-transform: capitalize;
+          white-space: nowrap;
+
+          svg {
+            flex-shrink: 0;
+          }
+        }
+
+        .status-badge {
+          @include badge(transparent, $text-primary);
+          white-space: nowrap;
+
+          &.status-active {
+            background: rgba($success, 0.15);
+            color: $success;
+          }
+
+          &.status-inactive {
+            background: rgba($text-muted, 0.15);
+            color: $text-muted;
+          }
+
+          &.status-banned {
+            background: rgba($danger, 0.15);
+            color: $danger;
+          }
+        }
+
+        .orders-cell {
+          min-width: 0;
+
+          .orders-header {
+            @include flex(center, flex-start, $space-xs);
+            margin-bottom: $space-2xs;
+
+            .orders-icon {
+              color: $text-muted;
+              flex-shrink: 0;
+            }
+          }
+
+          .orders-count {
+            font-weight: 600;
+          }
+
+          .orders-amount {
+            font-size: $font-xs;
+            color: $text-muted;
+          }
+
+          .btn-view-orders {
+            margin-top: $space-xs;
+            padding: $space-2xs $space-sm;
+            font-size: $font-xs;
+            background: $bg-tertiary;
+            border: none;
+            border-radius: $radius-sm;
+            color: $primary;
+            cursor: pointer;
+
+            &:hover {
+              background: $bg-elevated;
+            }
+          }
+        }
+
+        .date-cell {
+          @include flex(center, flex-start, $space-xs);
+          font-size: $font-xs;
+          color: $text-muted;
+          white-space: nowrap;
+
+          svg {
+            color: $text-tertiary;
+            flex-shrink: 0;
+          }
+        }
+
+        .actions-cell {
+          @include flex(center, flex-start, $space-xs);
+
+          .btn-action {
+            width: 36px;
+            height: 36px;
+            @include flex(center, center);
+            background: $bg-tertiary;
+            border: none;
+            border-radius: $radius-sm;
+            color: $text-primary;
+            cursor: pointer;
+            transition: $transition-fast;
+            flex-shrink: 0;
+
+            @media (min-width: $bp-xl) {
+              width: 32px;
+              height: 32px;
+            }
+
+            &:hover {
+              background: $bg-elevated;
+            }
+
+            &.btn-edit { color: $info; }
+            &.btn-ban { color: $warning; }
+            &.btn-activate { color: $success; }
+            &.btn-delete { color: $danger; }
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Mobile Cards (visible only on mobile/tablet)
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    @media (min-width: $bp-lg) {
+      display: none;
+    }
+
+    .user-card {
+      @include card;
+      padding: $space-md;
+
+      @media (min-width: $bp-md) {
+        padding: $space-lg;
+      }
+
+      .card-header {
+        @include flex(center, space-between, $space-sm);
+        margin-bottom: $space-md;
+
+        .card-user {
+          @include flex(center, flex-start, $space-sm);
+          min-width: 0;
+
+          img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+          }
+
+          .card-user-info {
+            min-width: 0;
+
+            h4 {
+              font-weight: 600;
+              color: $text-primary;
+              margin: 0;
+              font-size: $font-md;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            span {
+              font-size: $font-xs;
+              color: $text-muted;
+            }
+          }
+        }
+
+        .card-checkbox {
+          width: 20px;
+          height: 20px;
+          accent-color: $primary;
+          flex-shrink: 0;
+        }
+      }
+
+      .card-details {
+        margin-bottom: $space-md;
+
+        .card-detail {
+          @include flex(center, flex-start, $space-xs);
+          margin-bottom: $space-xs;
+          font-size: $font-sm;
+          color: $text-secondary;
+
+          @media (min-width: $bp-sm) {
+            font-size: $font-md;
+          }
+
+          svg {
+            color: $text-tertiary;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+          }
+
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .card-footer {
+        @include flex(center, space-between, $space-sm);
+        padding-top: $space-md;
+        border-top: 1px solid $border-color;
+
+        .card-status {
+          @include badge(transparent, $text-primary);
+          font-size: $font-sm;
+
+          &.status-active {
+            background: rgba($success, 0.15);
+            color: $success;
+          }
+
+          &.status-inactive {
+            background: rgba($text-muted, 0.15);
+            color: $text-muted;
+          }
+
+          &.status-banned {
+            background: rgba($danger, 0.15);
+            color: $danger;
+          }
+        }
+
+        .card-actions {
+          @include flex(center, flex-start, $space-xs);
+
+          button {
+            width: 40px;
+            height: 40px;
+            @include flex(center, center);
+            background: $bg-tertiary;
+            border: none;
+            border-radius: $radius-sm;
+            color: $text-primary;
+            cursor: pointer;
+            transition: $transition-fast;
+
+            @media (min-width: $bp-sm) {
+              width: 44px;
+              height: 44px;
+            }
+
+            &:hover {
+              background: $bg-elevated;
+            }
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Pagination
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-md;
+    padding: $space-lg 0;
+
+    @media (min-width: $bp-sm) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pagination-info {
+      color: $text-muted;
+      font-size: $font-sm;
+      text-align: center;
+
+      @media (min-width: $bp-sm) {
+        text-align: left;
+      }
+    }
+
+    .pagination-controls {
+      @include flex(center, center, $space-xs);
+      flex-wrap: wrap;
+
+      button {
+        padding: $space-xs $space-sm;
+        min-height: 36px;
+        min-width: 36px;
+        background: $bg-secondary;
+        border: 1px solid $border-color;
+        border-radius: $radius-sm;
+        color: $text-primary;
+        cursor: pointer;
+        transition: $transition-fast;
+        font-size: $font-sm;
+
+        &:hover:not(:disabled) {
+          background: $bg-tertiary;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &.active {
+          background: $primary;
+          color: $bg-primary;
+          border-color: $primary;
+        }
+      }
+    }
+  }
+
+  // Bulk Actions
+  .bulk-actions {
+    position: fixed;
+    bottom: $space-md;
+    left: $space-md;
+    right: $space-md;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    padding: $space-md;
+    @include flex(center, center, $space-md);
+    flex-direction: column;
+    box-shadow: $shadow-xl;
+    z-index: 100;
+
+    @media (min-width: $bp-sm) {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      flex-direction: row;
+      padding: $space-md $space-lg;
+      min-width: 300px;
+    }
+
+    @media (min-width: $bp-md) {
+      bottom: $space-lg;
+    }
+
+    .bulk-buttons {
+      @include flex(center, center, $space-sm);
+      width: 100%;
+
+      @media (min-width: $bp-sm) {
+        width: auto;
+      }
+
+      button {
+        flex: 1;
+        padding: $space-sm $space-md;
+        min-height: 44px;
+        border-radius: $radius-sm;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: $font-sm;
+        transition: $transition-fast;
+
+        &.btn-activate {
+          background: $success;
+          color: $text-primary;
+
+          &:hover {
+            background: darken($success, 10%);
+          }
+        }
+
+        &.btn-ban {
+          background: $warning;
+          color: $bg-primary;
+
+          &:hover {
+            background: darken($warning, 10%);
+          }
+        }
+
+        &.btn-clear {
+          background: $bg-tertiary;
+          color: $text-primary;
+
+          &:hover {
+            background: $bg-elevated;
+          }
+        }
+      }
+    }
+  }
+
+  // Modal
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    @include flex(center, center);
+    z-index: 1000;
+    padding: $space-md;
+
+    @media (min-width: $bp-sm) {
+      padding: $space-lg;
+    }
+
+    .modal-content {
+      background: $bg-secondary;
+      border: 1px solid $border-color;
+      border-radius: $radius-xl;
+      padding: $space-lg;
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 0.3s ease;
+
+      @media (min-width: $bp-sm) {
+        padding: $space-xl;
+      }
+
+      h3 {
+        font-size: clamp(1.125rem, 3vw, 1.25rem);
+        margin: 0 0 $space-md 0;
+        color: $text-primary;
+      }
+
+      p {
+        color: $text-muted;
+        margin: 0 0 $space-lg 0;
+        font-size: $font-md;
+        line-height: 1.5;
+
+        .highlight {
+          color: $text-primary;
+          font-weight: 600;
+        }
+      }
+
+      .modal-actions {
+        @include flex(center, stretch, $space-sm);
+        flex-direction: column;
+
+        @media (min-width: $bp-sm) {
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+
+        button {
+          flex: 1;
+          padding: $space-sm;
+          min-height: 44px; // Touch-friendly
+          border-radius: $radius-md;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: $font-md;
+          transition: $transition-fast;
+
+          &.btn-cancel {
+            background: $bg-tertiary;
+            color: $text-primary;
+            order: 2;
+
+            @media (min-width: $bp-sm) {
+              order: 1;
+            }
+
+            &:hover {
+              background: $bg-elevated;
+            }
+          }
+
+          &.btn-delete {
+            background: $danger;
+            color: $text-primary;
+            order: 1;
+
+            @media (min-width: $bp-sm) {
+              order: 2;
+            }
+
+            &:hover {
+              background: darken($danger, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Loading State
+  .loading-spinner {
+    @include flex(center, center, $space-md);
+    padding: $space-3xl;
+    color: $text-muted;
+    font-size: $font-lg;
+    flex-direction: column;
+
+    &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      border: 3px solid $border-color;
+      border-top-color: $primary;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// Keyframe Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

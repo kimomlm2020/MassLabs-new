@@ -1,0 +1,584 @@
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+
+// ==========================================
+// PRODUCTS PAGE - Refactorisée
+// ==========================================
+
+.products-page {
+  // Header
+  .page-header {
+    .btn-primary {
+      @include button-primary;
+    }
+  }
+
+  // Filtres
+  .filters-bar {
+    @include flex(center, flex-start, $space-md);
+    margin-bottom: $space-lg;
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: $space-sm;
+    }
+
+    .search-box {
+      @include flex(center, flex-start, $space-sm);
+      flex: 1;
+      min-width: 280px;
+      max-width: 400px;
+      background: $bg-secondary;
+      border: 1px solid $border-color;
+      border-radius: $radius-md;
+      padding: $space-sm $space-md;
+
+      @media (max-width: $bp-md) {
+        max-width: 100%;
+        min-width: auto;
+        padding: $space-xs $space-sm;
+      }
+
+      svg {
+        color: $text-muted;
+        flex-shrink: 0;
+
+        @media (max-width: $bp-sm) {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      input {
+        @include input-base;
+        border: none;
+        padding: 0;
+        background: transparent;
+      }
+    }
+
+    .filter-group {
+      @include flex(center, flex-start, $space-sm);
+
+      @media (max-width: $bp-md) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+      }
+
+      @media (max-width: $bp-sm) {
+        grid-template-columns: 1fr;
+      }
+
+      select {
+        @include input-base;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right $space-sm center;
+        padding-right: $space-xl;
+        cursor: pointer;
+        min-width: 150px;
+
+        @media (max-width: $bp-md) {
+          min-width: auto;
+          width: 100%;
+          padding: $space-xs $space-sm;
+          padding-right: $space-lg;
+        }
+
+        option {
+          background: $bg-primary;
+          color: $text-primary;
+        }
+      }
+    }
+  }
+
+  // Actions en masse
+  .bulk-actions {
+    @include flex(center, flex-start, $space-md);
+    padding: $space-md $space-lg;
+    background: rgba($danger, 0.1);
+    border: 1px solid rgba($danger, 0.3);
+    border-radius: $radius-md;
+    margin-bottom: $space-lg;
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-md) {
+      padding: $space-sm $space-md;
+      gap: $space-sm;
+    }
+
+    @media (max-width: $bp-sm) {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    span {
+      font-weight: 500;
+      color: $text-primary;
+      font-size: $font-sm;
+    }
+
+    .btn-danger {
+      @include button-danger;
+      padding: $space-xs $space-md;
+      font-size: $font-xs;
+    }
+  }
+
+  // Table Container
+  .table-container {
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    overflow-x: auto;
+    margin-bottom: $space-lg;
+    -webkit-overflow-scrolling: touch;
+
+    @include scrollbar;
+
+    @media (max-width: $bp-md) {
+      border-radius: $radius-md;
+      margin-bottom: $space-md;
+    }
+
+    @media (max-width: $bp-sm) {
+      border-radius: $radius-sm;
+    }
+  }
+
+  // Table
+  .products-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    font-size: $font-sm;
+
+    @media (max-width: $bp-xl) {
+      min-width: 850px;
+    }
+
+    @media (max-width: $bp-lg) {
+      min-width: 800px;
+      font-size: $font-xs;
+    }
+
+    thead {
+      background: $bg-primary;
+
+      th {
+        padding: $space-md;
+        text-align: left;
+        font-weight: 600;
+        font-size: $font-xs;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: $text-muted;
+        border-bottom: 1px solid $border-color;
+        white-space: nowrap;
+
+        @media (max-width: $bp-xl) {
+          padding: $space-sm $space-md;
+        }
+
+        @media (max-width: $bp-lg) {
+          padding: $space-sm;
+        }
+
+        input[type="checkbox"] {
+          width: 18px;
+          height: 18px;
+          accent-color: $primary;
+          cursor: pointer;
+
+          @media (max-width: $bp-lg) {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid $border-color;
+        transition: $transition-fast;
+
+        &:hover {
+          background: rgba($primary, 0.03);
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: $space-md;
+          color: $text-primary;
+          vertical-align: middle;
+
+          @media (max-width: $bp-xl) {
+            padding: $space-sm $space-md;
+          }
+
+          @media (max-width: $bp-lg) {
+            padding: $space-sm;
+          }
+
+          input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: $primary;
+            cursor: pointer;
+
+            @media (max-width: $bp-lg) {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    // Product Cell
+    .product-cell {
+      @include flex(center, flex-start, $space-sm);
+
+      @media (max-width: $bp-lg) {
+        gap: $space-xs;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: $radius-sm;
+        border: 1px solid $border-color;
+        flex-shrink: 0;
+
+        @media (max-width: $bp-xl) {
+          width: 45px;
+          height: 45px;
+        }
+
+        @media (max-width: $bp-lg) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      > div {
+        min-width: 0;
+
+        .product-name {
+          display: block;
+          font-weight: 500;
+          margin-bottom: 4px;
+          color: $text-primary;
+          @include truncate;
+          max-width: 200px;
+
+          @media (max-width: $bp-xl) {
+            max-width: 160px;
+          }
+
+          @media (max-width: $bp-lg) {
+            max-width: 140px;
+            font-size: $font-xs;
+          }
+        }
+
+        .product-sku {
+          display: block;
+          font-size: $font-xs;
+          color: $text-muted;
+          font-family: 'SF Mono', monospace;
+        }
+      }
+    }
+
+    // Badges
+    .category-badge {
+      @include badge($bg-elevated, $text-muted);
+    }
+
+    .stock-badge {
+      @include badge(transparent, $text-primary);
+      
+      &.in {
+        background: rgba($success, 0.15);
+        color: $success;
+      }
+      
+      &.low {
+        background: rgba($warning, 0.15);
+        color: $warning;
+      }
+    }
+
+    .status-badge {
+      @include badge(transparent, $text-primary);
+      text-transform: capitalize;
+
+      &.active {
+        background: rgba($success, 0.15);
+        color: $success;
+      }
+
+      &.inactive {
+        background: rgba($text-muted, 0.15);
+        color: $text-muted;
+      }
+
+      &.out-of-stock {
+        background: rgba($danger, 0.15);
+        color: $danger;
+      }
+    }
+
+    // Action Buttons
+    .action-buttons {
+      @include flex(center, flex-start, $space-xs);
+
+      @media (max-width: $bp-lg) {
+        gap: $space-2xs;
+      }
+
+      button {
+        @include flex(center, center);
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        border: none;
+        color: $text-muted;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        transition: $transition-fast;
+        flex-shrink: 0;
+
+        @media (max-width: $bp-lg) {
+          width: 28px;
+          height: 28px;
+        }
+
+        &:hover {
+          background: $bg-tertiary;
+          color: $text-primary;
+        }
+
+        &:first-child:hover {
+          background: rgba($primary, 0.15);
+          color: $primary;
+        }
+
+        &:last-child:hover {
+          background: rgba($danger, 0.15);
+          color: $danger;
+        }
+
+        svg {
+          @media (max-width: $bp-lg) {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  // Pagination
+  .pagination {
+    @include flex(center, space-between, $space-md);
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: $space-sm;
+    }
+
+    > span {
+      color: $text-muted;
+      font-size: $font-sm;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-xs;
+      }
+    }
+
+    .page-buttons {
+      @include flex(center, flex-start, $space-xs);
+
+      @media (max-width: $bp-sm) {
+        gap: $space-2xs;
+      }
+
+      button {
+        @include flex(center, center);
+        min-width: 36px;
+        height: 36px;
+        padding: 0 $space-sm;
+        background: $bg-secondary;
+        border: 1px solid $border-color;
+        border-radius: $radius-md;
+        color: $text-primary;
+        font-size: $font-sm;
+        cursor: pointer;
+        transition: $transition-fast;
+
+        @media (max-width: $bp-md) {
+          min-width: 32px;
+          height: 32px;
+          padding: 0 $space-xs;
+          font-size: $font-xs;
+        }
+
+        @media (max-width: $bp-sm) {
+          min-width: 28px;
+          height: 28px;
+          padding: 0 $space-2xs;
+          font-size: $font-xs;
+        }
+
+        &:hover:not(:disabled) {
+          background: $bg-tertiary;
+        }
+
+        &.active {
+          background: $primary;
+          border-color: $primary;
+          color: $bg-primary;
+          font-weight: 600;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  // Mobile Cards (alternative à la table)
+  .mobile-cards {
+    display: none;
+    flex-direction: column;
+    gap: $space-md;
+
+    @media (max-width: $bp-md) {
+      display: flex;
+    }
+
+    .mobile-product-card {
+      @include card;
+      padding: $space-md;
+
+      .card-header {
+        @include flex(center, space-between, $space-sm);
+        margin-bottom: $space-md;
+
+        .product-info {
+          @include flex(center, flex-start, $space-sm);
+
+          img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: $radius-sm;
+            border: 1px solid $border-color;
+          }
+
+          .product-details {
+            .product-name {
+              font-weight: 500;
+              color: $text-primary;
+              margin-bottom: 4px;
+              font-size: $font-sm;
+            }
+
+            .product-sku {
+              font-size: $font-xs;
+              color: $text-muted;
+              font-family: monospace;
+            }
+          }
+        }
+
+        input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          accent-color: $primary;
+        }
+      }
+
+      .card-body {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $space-sm;
+        margin-bottom: $space-md;
+
+        .info-item {
+          .label {
+            font-size: $font-xs;
+            color: $text-muted;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+          }
+
+          .value {
+            font-size: $font-sm;
+            color: $text-primary;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .card-footer {
+        @include flex(center, space-between, $space-sm);
+        padding-top: $space-md;
+        border-top: 1px solid $border-color;
+
+        .action-buttons {
+          @include flex(center, flex-start, $space-xs);
+
+          button {
+            width: 36px;
+            height: 36px;
+            @include flex(center, center);
+            background: transparent;
+            border: none;
+            color: $text-muted;
+            border-radius: $radius-sm;
+            cursor: pointer;
+
+            &:first-child {
+              background: rgba($primary, 0.1);
+              color: $primary;
+            }
+
+            &:last-child {
+              background: rgba($danger, 0.1);
+              color: $danger;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Cacher la table sur mobile
+  @media (max-width: $bp-md) {
+    .table-container {
+      display: none;
+    }
+  }
+}

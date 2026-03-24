@@ -1,0 +1,484 @@
+@import './variables';
+@import './mixins';
+// ==========================================
+// LAYOUT GLOBAL - Gestion Navbar + Sidebar
+// ==========================================
+
+// Structure principale de l'application
+.app-layout {
+  min-height: 100vh;
+  background: $bg-primary;
+  color: $text-primary;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Conteneur principal qui gère la sidebar
+  .layout-container {
+    display: flex;
+    min-height: 100vh;
+  }
+}
+
+// ==========================================
+// SIDEBAR (inchangée de votre code qui fonctionne)
+// ==========================================
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: $sidebar-width;
+  background: $bg-primary;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: width $transition-base;
+  overflow: hidden;
+
+  // État fermé
+  &.closed {
+    width: $sidebar-collapsed;
+
+    .logo-text,
+    .nav-label,
+    .logout-btn span,
+    .admin-details,
+    .sub-nav {
+      display: none;
+    }
+
+    .logo {
+      justify-content: center;
+    }
+
+    .nav-item {
+      justify-content: center;
+      padding: 15px 0;
+      margin: 0 5px;
+    }
+
+    .logout-btn {
+      justify-content: center;
+      padding: 12px 0;
+    }
+
+    .admin-info {
+      justify-content: center;
+    }
+
+    .sub-indicator {
+      display: none;
+    }
+
+    .sidebar-header {
+      padding: 20px 10px;
+    }
+  }
+
+  // Tablet - auto-collapse avec hover expand
+  @media (max-width: $bp-lg) and (min-width: $bp-md + 1px) {
+    width: $sidebar-collapsed;
+
+    .logo-text,
+    .nav-label,
+    .logout-btn span,
+    .admin-details,
+    .sub-nav {
+      display: none;
+    }
+
+    .logo { justify-content: center; }
+    .nav-item { justify-content: center; padding: 15px 0; margin: 0 5px; }
+    .logout-btn { justify-content: center; padding: 12px 0; }
+    .admin-info { justify-content: center; }
+    .sub-indicator { display: none; }
+    .sidebar-header { padding: 20px 10px; }
+
+    &:hover {
+      width: $sidebar-width;
+
+      .logo-text,
+      .nav-label,
+      .logout-btn span,
+      .admin-details,
+      .sub-nav { display: block; }
+
+      .logo { justify-content: flex-start; }
+      .nav-item { justify-content: flex-start; padding: 15px 20px; margin: 0 10px; }
+      .logout-btn { justify-content: flex-start; padding: 12px; }
+      .sub-indicator { display: block; }
+      .sidebar-header { padding: 20px; }
+    }
+  }
+
+  // Mobile
+  @media (max-width: $bp-md) {
+    transform: translateX(-100%);
+    width: $sidebar-width;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    &.closed {
+      transform: translateX(-100%);
+      width: $sidebar-width;
+    }
+
+    // Reset styles collapsed sur mobile
+    .logo-text,
+    .nav-label,
+    .logout-btn span,
+    .admin-details,
+    .sub-nav { display: block !important; }
+
+    .logo { justify-content: flex-start !important; }
+    .nav-item { justify-content: flex-start !important; padding: 15px 20px !important; margin: 0 10px !important; }
+    .logout-btn { justify-content: flex-start !important; padding: 12px !important; }
+    .sub-indicator { display: block !important; }
+    .sidebar-header { padding: 20px !important; }
+  }
+}
+
+// ==========================================
+// NAVBAR (inchangée de votre code qui fonctionne)
+// ==========================================
+.admin-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidebar-width;
+  height: $navbar-height;
+  background: $bg-secondary;
+  border-bottom: 1px solid $border-color;
+  @include flex(center, space-between);
+  padding: 0 $space-lg;
+  z-index: 100;
+  transition: left $transition-base;
+
+  @media (max-width: $bp-lg) {
+    left: $sidebar-collapsed;
+  }
+
+  @media (max-width: $bp-md) {
+    left: 0;
+    padding: 0 $space-md;
+  }
+}
+
+// ==========================================
+// MAIN CONTENT - ZONE DE CONTENU CENTRÉE
+// ==========================================
+
+// Conteneur principal du contenu
+.main-content {
+  flex: 1;
+  margin-left: $sidebar-width;
+  margin-top: $navbar-height;
+  min-height: calc(100vh - #{$navbar-height});
+  background: $bg-primary;
+  transition: margin-left $transition-base;
+
+  // Adapter selon l'état de la sidebar
+  .sidebar-closed & {
+    margin-left: $sidebar-collapsed;
+  }
+
+  @media (max-width: $bp-lg) {
+    margin-left: $sidebar-collapsed;
+  }
+
+  @media (max-width: $bp-md) {
+    margin-left: 0;
+  }
+}
+
+// ==========================================
+// PAGE CONTAINER - CENTRAGE DU CONTENU
+// ==========================================
+
+.page-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: $space-xl;
+  animation: fadeIn 0.5s ease-out;
+
+  @media (max-width: $bp-xl) {
+    padding: $space-lg;
+  }
+
+  @media (max-width: $bp-md) {
+    padding: $space-md;
+  }
+
+  @media (max-width: $bp-sm) {
+    padding: $space-sm;
+  }
+}
+
+// Variantes de taille pour les pages
+.page-container {
+  // Petite taille (formulaires, détails)
+  &.size-small {
+    max-width: 800px;
+  }
+
+  // Taille moyenne (listes simples)
+  &.size-medium {
+    max-width: 1200px;
+  }
+
+  // Grande taille (dashboard, tableaux complexes)
+  &.size-large {
+    max-width: 1600px;
+  }
+
+  // Pleine largeur
+  &.size-full {
+    max-width: 100%;
+  }
+}
+
+// ==========================================
+// GRILLE DE PAGE STANDARD
+// ==========================================
+
+.page-grid {
+  display: grid;
+  gap: $space-lg;
+
+  // Layout par défaut : une colonne
+  grid-template-columns: 1fr;
+
+  // Deux colonnes (sidebar + contenu)
+  &.layout-sidebar {
+    grid-template-columns: 280px 1fr;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Dashboard layout
+  &.layout-dashboard {
+    grid-template-columns: 2fr 1fr;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Trois colonnes égales
+  &.layout-3col {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: $bp-xl) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Quatre colonnes égales
+  &.layout-4col {
+    grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: $bp-xxl) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: $bp-xl) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ==========================================
+// SECTIONS DE PAGE
+// ==========================================
+
+.page-section {
+  margin-bottom: $space-xl;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: $bp-md) {
+    margin-bottom: $space-lg;
+  }
+}
+
+// Header de page standard
+.page-header {
+  @include flex(flex-end, space-between, $space-md);
+  margin-bottom: $space-xl;
+  flex-wrap: wrap;
+
+  @media (max-width: $bp-md) {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: $space-lg;
+  }
+
+  .header-content {
+    flex: 1;
+    min-width: 0;
+
+    h1 {
+      font-size: $font-2xl;
+      font-weight: 700;
+      margin: 0 0 $space-xs 0;
+      background: linear-gradient(135deg, $text-primary, $primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-xl;
+      }
+    }
+
+    .subtitle {
+      color: $text-secondary;
+      font-size: $font-md;
+      margin: 0;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-sm;
+      }
+    }
+  }
+
+  .header-actions {
+    @include flex(center, flex-end, $space-sm);
+    flex-shrink: 0;
+
+    @media (max-width: $bp-md) {
+      justify-content: stretch;
+      
+      > * {
+        flex: 1;
+      }
+    }
+  }
+}
+
+// ==========================================
+// CARTES ET PANNEAUX
+// ==========================================
+
+.panel {
+  @include card;
+  overflow: hidden;
+
+  .panel-header {
+    @include flex(center, space-between, $space-sm);
+    padding: $space-lg;
+    border-bottom: 1px solid $border-color;
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-md) {
+      padding: $space-md;
+    }
+
+    h3 {
+      font-size: $font-lg;
+      font-weight: 600;
+      margin: 0;
+      color: $text-primary;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-md;
+      }
+    }
+
+    .panel-subtitle {
+      font-size: $font-sm;
+      color: $text-tertiary;
+      margin-top: $space-2xs;
+    }
+  }
+
+  .panel-body {
+    padding: $space-lg;
+
+    @media (max-width: $bp-md) {
+      padding: $space-md;
+    }
+
+    @media (max-width: $bp-sm) {
+      padding: $space-sm;
+    }
+  }
+}
+
+// ==========================================
+// ANIMATIONS
+// ==========================================
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// ==========================================
+// UTILITAIRES RESPONSIVE
+// ==========================================
+
+.hide-mobile {
+  @media (max-width: $bp-md) {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @media (max-width: $bp-lg) and (min-width: $bp-md) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: $bp-lg) {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none !important;
+  
+  @media (max-width: $bp-md) {
+    display: flex !important;
+  }
+}

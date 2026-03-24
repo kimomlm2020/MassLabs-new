@@ -1,0 +1,522 @@
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+
+// ==========================================
+// PRODUCT FORM PAGE - Refactorisée
+// ==========================================
+
+.product-form-page {
+  &.loading {
+    @include flex(center, center, $space-md, column);
+    min-height: 60vh;
+
+    .spinner {
+      animation: spin 1s linear infinite;
+      color: $primary;
+    }
+
+    p {
+      color: $text-muted;
+    }
+  }
+
+  .back-btn {
+    @include flex(center, flex-start, $space-sm);
+    margin-bottom: $space-lg;
+    padding: $space-sm $space-md;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: $transition-fast;
+    color: $text-muted;
+    font-size: $font-sm;
+
+    &:hover {
+      background: $bg-tertiary;
+      border-color: $primary;
+      color: $primary;
+    }
+
+    @media (max-width: $bp-sm) {
+      margin-bottom: $space-md;
+      padding: $space-xs $space-sm;
+      font-size: $font-xs;
+    }
+  }
+
+  .page-header {
+    margin-bottom: $space-xl;
+
+    @media (max-width: $bp-md) {
+      margin-bottom: $space-lg;
+    }
+
+    h1 {
+      font-size: $font-xl;
+      font-weight: 700;
+      color: $text-primary;
+      margin: 0 0 $space-xs 0;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-lg;
+      }
+    }
+
+    .subtitle {
+      color: $text-muted;
+      font-size: $font-sm;
+      margin: 0;
+
+      @media (max-width: $bp-sm) {
+        font-size: $font-xs;
+      }
+    }
+  }
+
+  .product-form {
+    background: $bg-secondary;
+    border-radius: $radius-lg;
+    border: 1px solid $border-color;
+    box-shadow: $shadow-lg;
+    padding: $space-2xl;
+
+    @media (max-width: $bp-xl) {
+      padding: $space-xl;
+    }
+
+    @media (max-width: $bp-md) {
+      padding: $space-lg;
+      border-radius: $radius-md;
+    }
+
+    @media (max-width: $bp-sm) {
+      padding: $space-md;
+    }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-xl;
+    margin-bottom: $space-xl;
+
+    @media (max-width: $bp-xl) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $space-lg;
+    }
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: $space-md;
+      margin-bottom: $space-lg;
+    }
+
+    @media (max-width: $bp-sm) {
+      gap: $space-sm;
+      margin-bottom: $space-md;
+    }
+  }
+
+  .form-section {
+    h3 {
+      font-size: $font-md;
+      font-weight: 600;
+      color: $primary;
+      margin: 0 0 $space-lg 0;
+      padding-bottom: $space-sm;
+      border-bottom: 2px solid $border-color;
+
+      @media (max-width: $bp-md) {
+        font-size: $font-sm;
+        margin-bottom: $space-md;
+      }
+    }
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .form-group {
+    margin-bottom: $space-lg;
+
+    @media (max-width: $bp-md) {
+      margin-bottom: $space-md;
+    }
+
+    @media (max-width: $bp-sm) {
+      margin-bottom: $space-sm;
+    }
+
+    label {
+      display: block;
+      font-size: $font-sm;
+      font-weight: 500;
+      color: $text-primary;
+      margin-bottom: $space-xs;
+
+      @media (max-width: $bp-sm) {
+        font-size: $font-xs;
+        margin-bottom: $space-2xs;
+      }
+
+      &.checkbox-label {
+        @include flex(center, flex-start, $space-sm);
+        cursor: pointer;
+        padding: $space-xs;
+        border-radius: $radius-sm;
+        transition: $transition-fast;
+
+        &:hover {
+          background: $bg-tertiary;
+        }
+
+        input[type="checkbox"] {
+          width: 1rem;
+          height: 1rem;
+          accent-color: $primary;
+          cursor: pointer;
+        }
+      }
+    }
+
+    input,
+    select,
+    textarea {
+      @include input-base;
+
+      @media (max-width: $bp-sm) {
+        padding: $space-xs $space-sm;
+        font-size: $font-xs;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+
+      @media (max-width: $bp-sm) {
+        min-height: 100px;
+      }
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4AF37' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right $space-sm center;
+      padding-right: $space-xl;
+
+      option {
+        background: $bg-secondary;
+        color: $text-primary;
+      }
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-md;
+
+    @media (max-width: $bp-sm) {
+      grid-template-columns: 1fr;
+      gap: $space-sm;
+    }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: $space-xs;
+  }
+
+  // Upload d'images
+  .image-upload {
+    margin-bottom: $space-lg;
+
+    .upload-btn {
+      @include flex(center, center, $space-xs, column);
+      padding: $space-xl;
+      border: 2px dashed $border-color;
+      border-radius: $radius-lg;
+      cursor: pointer;
+      transition: $transition-fast;
+      color: $text-muted;
+      background: $bg-tertiary;
+
+      @media (max-width: $bp-sm) {
+        padding: $space-lg;
+      }
+
+      &:hover:not(.disabled) {
+        border-color: $primary;
+        color: $primary;
+        background: rgba($primary, 0.05);
+      }
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      svg {
+        margin-bottom: $space-sm;
+        color: inherit;
+
+        @media (max-width: $bp-sm) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      span {
+        font-weight: 500;
+        margin-bottom: $space-2xs;
+        font-size: $font-sm;
+
+        @media (max-width: $bp-sm) {
+          font-size: $font-xs;
+        }
+      }
+
+      small {
+        font-size: $font-xs;
+        color: $text-muted;
+
+        @media (max-width: $bp-sm) {
+          font-size: $font-2xs;
+        }
+      }
+    }
+  }
+
+  .upload-progress {
+    margin-bottom: $space-lg;
+
+    .progress-bar {
+      height: 0.5rem;
+      background: $border-color;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: $space-xs;
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $primary, $primary-dark);
+        transition: width 0.3s ease;
+      }
+    }
+
+    span {
+      font-size: $font-sm;
+      color: $text-muted;
+    }
+  }
+
+  .image-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: $space-md;
+
+    @media (max-width: $bp-sm) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $space-sm;
+    }
+
+    .preview-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: $radius-md;
+      overflow: hidden;
+      border: 1px solid $border-color;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .remove-btn {
+        position: absolute;
+        top: $space-xs;
+        right: $space-xs;
+        width: 1.75rem;
+        height: 1.75rem;
+        @include flex(center, center);
+        background: rgba($danger, 0.9);
+        color: $text-primary;
+        border: none;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        transition: $transition-fast;
+
+        &:hover:not(:disabled) {
+          background: $danger;
+          transform: scale(1.05);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        @media (max-width: $bp-sm) {
+          width: 1.5rem;
+          height: 1.5rem;
+          top: $space-2xs;
+          right: $space-2xs;
+        }
+      }
+    }
+  }
+
+  // Upload row (variante)
+  .image-upload-row {
+    display: flex;
+    gap: $space-md;
+    flex-wrap: wrap;
+    margin-bottom: $space-lg;
+
+    @media (max-width: $bp-sm) {
+      gap: $space-sm;
+    }
+  }
+
+  .image-upload-box {
+    position: relative;
+    width: 120px;
+    height: 120px;
+
+    @media (max-width: $bp-md) {
+      width: 100px;
+      height: 100px;
+    }
+
+    @media (max-width: $bp-sm) {
+      width: 80px;
+      height: 80px;
+    }
+
+    label {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .upload-placeholder {
+      width: 100%;
+      height: 100%;
+      border: 2px dashed $border-color;
+      border-radius: $radius-md;
+      @include flex(center, center, $space-2xs, column);
+      background: $bg-tertiary;
+      transition: $transition-fast;
+
+      &:hover {
+        border-color: $primary;
+        background: rgba($primary, 0.05);
+      }
+
+      &.has-image {
+        border-style: solid;
+        border-color: $primary;
+        padding: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $radius-md;
+      }
+
+      svg {
+        color: $primary;
+
+        @media (max-width: $bp-sm) {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      span {
+        font-size: $font-xs;
+        color: $text-muted;
+
+        @media (max-width: $bp-sm) {
+          font-size: $font-2xs;
+        }
+      }
+    }
+  }
+
+  .remove-image-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: $danger;
+    color: $text-primary;
+    border: none;
+    border-radius: 50%;
+    @include flex(center, center);
+    cursor: pointer;
+    transition: $transition-fast;
+    box-shadow: $shadow-md;
+
+    &:hover {
+      background: darken($danger, 10%);
+      transform: scale(1.1);
+    }
+
+    @media (max-width: $bp-sm) {
+      width: 20px;
+      height: 20px;
+      top: -6px;
+      right: -6px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  // Actions du formulaire
+  .form-actions {
+    @include flex(center, flex-end, $space-md);
+    padding-top: $space-xl;
+    border-top: 1px solid $border-color;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column-reverse;
+      gap: $space-sm;
+      padding-top: $space-lg;
+    }
+
+    .btn {
+      @include flex(center, center, $space-xs);
+
+      @media (max-width: $bp-md) {
+        width: 100%;
+        justify-content: center;
+      }
+
+      &.btn-secondary {
+        @include button-secondary;
+      }
+
+      &.btn-primary {
+        @include button-primary;
+
+        .spinner {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+}

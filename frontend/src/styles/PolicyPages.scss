@@ -1,0 +1,431 @@
+// styles/PolicyPages.scss
+// ==================== POLICY PAGES - DARK/GOLD THEME ====================
+
+$dark-bg: #0a0a0a;
+$darker-bg: #050505;
+$dark-card: #111111;
+$dark-border: #1a1a1a;
+$dark-text: #e0e0e0;
+$dark-text-secondary: #a0a0a0;
+
+$gold-primary: #FFD700;
+$gold-secondary: #FFED4E;
+$gold-accent: #C9A227;
+$gold-glow: rgba(255, 215, 0, 0.3);
+
+$gradient-gold: linear-gradient(135deg, #e4ce55f8 0%, #FFED4E 50%, #C9A227);
+
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+
+// ==========================================
+// BASE STYLES
+// ==========================================
+.policy-page {
+  min-height: 100vh;
+  background: $darker-bg;
+  color: $dark-text;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px);
+
+  @media (max-width: $mobile) {
+    padding: clamp(100px, 6vw, 40px) clamp(12px, 3vw, 16px);
+  }
+}
+
+.policy-container {
+  max-width: min(900px, 95%);
+  margin: 0 auto;
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: 20px;
+  padding: clamp(30px, 6vw, 60px);
+
+  @media (max-width: $mobile) {
+    padding: clamp(20px, 5vw, 30px);
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: $gradient-gold;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .last-updated {
+    color: $dark-text-secondary;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    margin-bottom: clamp(30px, 5vw, 40px);
+    padding-bottom: clamp(20px, 4vw, 30px);
+    border-bottom: 1px solid $dark-border;
+  }
+}
+
+// ==========================================
+// SECTIONS
+// ==========================================
+section {
+  margin-bottom: clamp(30px, 5vw, 40px);
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: $gold-primary;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: $mobile) {
+      flex-wrap: wrap;
+    }
+  }
+
+  h3 {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 600;
+    color: $gold-secondary;
+    margin: clamp(20px, 4vw, 25px) 0 clamp(12px, 2vw, 15px);
+  }
+
+  h4 {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: $dark-text;
+    margin-bottom: clamp(8px, 2vw, 12px);
+  }
+
+  p {
+    color: $dark-text-secondary;
+    line-height: 1.8;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+
+    strong {
+      color: $dark-text;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: clamp(15px, 3vw, 20px);
+
+    li {
+      position: relative;
+      padding-left: clamp(25px, 5vw, 30px);
+      margin-bottom: clamp(10px, 2vw, 12px);
+      color: $dark-text-secondary;
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+
+      &::before {
+        content: '›';
+        position: absolute;
+        left: 0;
+        color: $gold-primary;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  a {
+    color: $gold-primary;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      border-bottom-color: $gold-primary;
+    }
+  }
+}
+
+// ==========================================
+// HIGHLIGHT BOXES
+// ==========================================
+.highlight-box {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: clamp(20px, 4vw, 30px);
+  margin-bottom: clamp(30px, 5vw, 40px);
+
+  h2 {
+    margin-top: 0;
+    color: $gold-secondary;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &.warning {
+    background: rgba(255, 71, 87, 0.05);
+    border-color: rgba(255, 71, 87, 0.3);
+
+    h2 {
+      color: #ff4757;
+    }
+  }
+}
+
+// ==========================================
+// SHIPPING TABLE
+// ==========================================
+.shipping-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid $dark-border;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: clamp(20px, 4vw, 25px) 0;
+
+  .shipping-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+    gap: clamp(10px, 2vw, 15px);
+    padding: clamp(12px, 2.5vw, 16px) clamp(15px, 3vw, 20px);
+    border-bottom: 1px solid $dark-border;
+    align-items: center;
+
+    @media (max-width: $tablet) {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+      padding: 15px;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.header {
+      background: rgba(255, 215, 0, 0.1);
+      font-weight: 700;
+      color: $gold-primary;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+
+      @media (max-width: $tablet) {
+        display: none;
+      }
+    }
+
+    &:not(.header) {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      color: $dark-text-secondary;
+
+      span:first-child {
+        color: $dark-text;
+        font-weight: 600;
+      }
+
+      @media (max-width: $tablet) {
+        span::before {
+          content: attr(data-label);
+          display: block;
+          font-size: 0.75rem;
+          color: $gold-primary;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+}
+
+// ==========================================
+// PROCESS STEPS
+// ==========================================
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(15px, 3vw, 20px);
+  margin: clamp(25px, 5vw, 30px) 0;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $mobile) {
+    grid-template-columns: 1fr;
+  }
+
+  .step {
+    background: $darker-bg;
+    border: 1px solid $dark-border;
+    border-radius: 12px;
+    padding: clamp(20px, 4vw, 25px);
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: $gold-primary;
+      transform: translateY(-3px);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: $gradient-gold;
+      color: $dark-bg;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+    }
+
+    h4 {
+      color: $gold-primary;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: clamp(0.85rem, 2vw, 0.9rem);
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ==========================================
+// POLICY TABLE
+// ==========================================
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: clamp(20px, 4vw, 25px) 0;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+
+  @media (max-width: $mobile) {
+    display: block;
+    overflow-x: auto;
+  }
+
+  thead {
+    @media (max-width: $mobile) {
+      display: none;
+    }
+
+    tr {
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    th {
+      padding: clamp(12px, 2.5vw, 15px);
+      text-align: left;
+      color: $gold-primary;
+      font-weight: 700;
+      border-bottom: 2px solid $dark-border;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $dark-border;
+
+      @media (max-width: $mobile) {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid $dark-border;
+        border-radius: 8px;
+        padding: 15px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: clamp(12px, 2.5vw, 15px);
+      color: $dark-text-secondary;
+
+      @media (max-width: $mobile) {
+        display: block;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba($dark-border, 0.5);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &::before {
+          content: attr(data-label);
+          display: block;
+          font-size: 0.75rem;
+          color: $gold-primary;
+          margin-bottom: 4px;
+          font-weight: 600;
+        }
+      }
+
+      &:first-child {
+        color: $dark-text;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// ==========================================
+// CONTACT SECTION
+// ==========================================
+.contact-section {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: clamp(25px, 5vw, 30px);
+  margin-top: clamp(40px, 6vw, 50px);
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// ==========================================
+// PRINT STYLES
+// ==========================================
+@media print {
+  .policy-page {
+    background: white;
+    color: black;
+    padding: 20px;
+
+    .policy-container {
+      border: 1px solid #ccc;
+      max-width: 100%;
+    }
+
+    h1, h2, h3 {
+      color: black !important;
+      -webkit-text-fill-color: black !important;
+    }
+
+    .highlight-box,
+    .contact-section {
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+    }
+  }
+}

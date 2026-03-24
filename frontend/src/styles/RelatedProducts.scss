@@ -1,0 +1,385 @@
+// ==================== RELATED PRODUCTS - DARK/GOLD THEME ====================
+$dark-bg: #0a0a0a;
+$darker-bg: #050505;
+$dark-card: #111111;
+$dark-border: #1a1a1a;
+$dark-text: #e0e0e0;
+$dark-text-secondary: #a0a0a0;
+
+$gold-primary: #FFD700;
+$gold-secondary: #FFED4E;
+$gold-accent: #C9A227;
+$gold-glow: rgba(255, 215, 0, 0.3);
+
+$gradient-gold: linear-gradient(135deg, #e4ce55f8 0%, #FFED4E 50%, #C9A227);
+$gradient-dark: linear-gradient(135deg, #111111 0%, #1a1a1a 50%, #0a0a0a);
+
+$shadow-glow: 0 0 20px rgba(255, 215, 0, 0.2);
+$shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+// ==================== ANIMATIONS ====================
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+// ==================== MAIN SECTION ====================
+.related-products {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 2px solid $dark-border;
+    animation: fade-in-up 0.6s ease;
+
+    @media (max-width: 768px) {
+        margin-top: 40px;
+        padding-top: 30px;
+    }
+}
+
+// ==================== HEADER ====================
+.related-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        background: $gradient-gold;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+        }
+    }
+
+    p {
+        color: $dark-text-secondary;
+        font-size: 1rem;
+    }
+}
+
+// ==================== PRODUCT GRID ====================
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ==================== PRODUCT CARD ====================
+.related-card {
+    background: $dark-card;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid $dark-border;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+
+    &:hover {
+        transform: translateY(-8px);
+        border-color: $gold-primary;
+        box-shadow: $shadow-glow;
+
+        .related-image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .related-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+// ==================== IMAGE WRAPPER ====================
+.related-image-wrapper {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: $darker-bg;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    // Shimmer loading effect placeholder
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 215, 0, 0.05) 50%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    &:not(:has(img[src]))::before {
+        opacity: 1;
+    }
+}
+
+// ==================== BADGES ====================
+.related-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 2;
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.bestseller {
+            background: $gradient-gold;
+            color: $dark-bg;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        &.discount {
+            background: #ff4757;
+            color: white;
+        }
+
+        &.low-stock {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 1px solid #ff4757;
+        }
+    }
+}
+
+// ==================== QUICK ACTIONS ====================
+.related-actions {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 2;
+
+    .quick-add-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: none;
+        background: $gradient-gold;
+        color: $dark-bg;
+        font-size: 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        transition: all 0.3s ease;
+
+        &:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &.in-cart {
+            background: #4CAF50;
+            color: white;
+        }
+
+        // Prevent card click when clicking button
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}
+
+// ==================== PRODUCT INFO ====================
+.related-info {
+    padding: 20px;
+
+    .related-category {
+        display: block;
+        font-size: 0.8rem;
+        color: $gold-primary;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .related-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $dark-text;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2.8em;
+
+        &:hover {
+            color: $gold-primary;
+        }
+    }
+
+    .related-rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        .stars {
+            color: $gold-primary;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .count {
+            color: $dark-text-secondary;
+            font-size: 0.85rem;
+        }
+    }
+
+    .related-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .current {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: $gold-primary;
+        }
+
+        .old {
+            font-size: 0.95rem;
+            color: $dark-text-secondary;
+            text-decoration: line-through;
+        }
+    }
+}
+
+// ==================== EMPTY STATE ====================
+.related-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: $dark-text-secondary;
+
+    p {
+        font-size: 1.1rem;
+    }
+}
+
+// ==================== LOADING SKELETON ====================
+.related-skeleton {
+    .skeleton-card {
+        background: $dark-card;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid $dark-border;
+
+        .skeleton-image {
+            aspect-ratio: 1;
+            background: linear-gradient(
+                90deg,
+                $darker-bg 25%,
+                lighten($darker-bg, 5%) 50%,
+                $darker-bg 75%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .skeleton-content {
+            padding: 20px;
+
+            .skeleton-line {
+                height: 12px;
+                background: $darker-bg;
+                border-radius: 4px;
+                margin-bottom: 10px;
+
+                &:nth-child(1) { width: 40%; }
+                &:nth-child(2) { width: 80%; height: 20px; }
+                &:nth-child(3) { width: 60%; }
+            }
+        }
+    }
+}
+
+// ==================== RESPONSIVE ADJUSTMENTS ====================
+@media (max-width: 480px) {
+    .related-products {
+        .related-header {
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        .related-card {
+            .related-info {
+                padding: 15px;
+
+                .related-name {
+                    font-size: 0.95rem;
+                }
+
+                .related-price {
+                    .current {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+}

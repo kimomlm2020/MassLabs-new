@@ -1,0 +1,238 @@
+@import './variables';
+
+// ==========================================
+// MIXINS DE LAYOUT
+// ==========================================
+
+@mixin flex($align: center, $justify: flex-start, $gap: null, $dir: row) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $dir;
+  
+  // Utiliser null au lieu de 0 comme valeur par défaut
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+
+@mixin grid($cols: 1, $gap: $space-md) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+@mixin responsive-grid($cols-xs: 1, $cols-sm: 2, $cols-md: 3, $cols-lg: 4, $gap: $space-md) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat($cols-xs, 1fr);
+
+  @media (min-width: $bp-sm) {
+    grid-template-columns: repeat($cols-sm, 1fr);
+  }
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat($cols-md, 1fr);
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: repeat($cols-lg, 1fr);
+  }
+}
+
+// ==========================================
+// MIXINS DE COMPOSANTS
+// ==========================================
+
+@mixin card {
+  background: $bg-secondary;
+  border: $border-width solid $border-color;
+  border-radius: $radius-lg;
+  transition: $transition-base;
+  
+  &:hover {
+    border-color: $border-hover;
+  }
+}
+
+@mixin card-elevated {
+  @include card;
+  box-shadow: $shadow-md;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+}
+
+@mixin button-base {
+  @include flex(center, center, $space-xs);
+  padding: $space-sm $space-md;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: $transition-fast;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: linear-gradient(135deg, $primary, $primary-dark);
+  color: $bg-primary;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-gold;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: $bg-tertiary;
+  border: 1px solid $border-color;
+  color: $text-primary;
+
+  &:hover:not(:disabled) {
+    background: $bg-elevated;
+    border-color: $border-hover;
+  }
+}
+
+@mixin button-danger {
+  @include button-base;
+  background: transparent;
+  border: 1px solid $danger;
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background: $danger;
+    color: $text-primary;
+  }
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: $space-sm $space-md;
+  background: $bg-tertiary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $font-sm;
+  transition: $transition-fast;
+  outline: none;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin badge($bg, $color) {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-2xs $space-sm;
+  border-radius: 20px;
+  font-size: $font-xs;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: rgba($bg, 0.15);
+  color: $color;
+  white-space: nowrap;
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border-color;
+    border-radius: 3px;
+
+    &:hover {
+      background: $text-tertiary;
+    }
+  }
+}
+
+@mixin truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ==========================================
+// MIXINS RESPONSIVE
+// ==========================================
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: $bp-sm - 1px) { @content; }
+  }
+  @if $breakpoint == sm {
+    @media (min-width: $bp-sm) and (max-width: $bp-md - 1px) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (min-width: $bp-md) and (max-width: $bp-lg - 1px) { @content; }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: $bp-lg) and (max-width: $bp-xl - 1px) { @content; }
+  }
+  @if $breakpoint == xl {
+    @media (min-width: $bp-xl) { @content; }
+  }
+  @if $breakpoint == mobile {
+    @media (max-width: $bp-md - 1px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: $bp-lg - 1px) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: $bp-lg) { @content; }
+  }
+}
+
+// ==========================================
+// MIXINS D'ANIMATION
+// ==========================================
+
+@mixin fade-in($delay: 0s) {
+  animation: fadeIn 0.5s ease-out $delay backwards;
+}
+
+@mixin slide-in($delay: 0s) {
+  animation: slideIn 0.3s ease-out $delay backwards;
+}
+
+@mixin stagger-children($count, $delay-step: 0.1s) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * $delay-step};
+    }
+  }
+}

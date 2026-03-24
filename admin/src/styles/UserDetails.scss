@@ -1,0 +1,440 @@
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+
+// ==========================================
+// USER DETAILS PAGE - Refactorisée
+// ==========================================
+
+.user-details-page {
+  // Header
+  .page-header {
+    .btn-back {
+      @include button-secondary;
+    }
+
+    .header-actions {
+      @include flex(center, flex-end, $space-sm);
+      flex-wrap: wrap;
+
+      @media (max-width: $bp-md) {
+        width: 100%;
+        
+        button {
+          flex: 1;
+        }
+      }
+
+      button {
+        @include flex(center, center, $space-xs);
+
+        .spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        &.btn-secondary {
+          @include button-secondary;
+        }
+
+        &.btn-primary {
+          @include button-primary;
+        }
+
+        &.btn-success {
+          background: rgba($success, 0.2);
+          color: $success;
+          border: 1px solid $success;
+
+          &:hover {
+            background: rgba($success, 0.3);
+          }
+        }
+
+        &.btn-warning {
+          background: rgba($warning, 0.2);
+          color: $warning;
+          border: 1px solid $warning;
+
+          &:hover {
+            background: rgba($warning, 0.3);
+          }
+        }
+
+        &.btn-danger {
+          @include button-danger;
+        }
+      }
+    }
+  }
+
+  // Content Layout
+  .user-details-content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: $space-xl;
+    margin-bottom: $space-xl;
+
+    @media (max-width: $bp-xl) {
+      grid-template-columns: 280px 1fr;
+      gap: $space-lg;
+    }
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: $bp-md) {
+      gap: $space-md;
+      margin-bottom: $space-lg;
+    }
+  }
+
+  // User Info Card
+  .user-info-card {
+    @include card;
+    padding: $space-xl;
+    height: fit-content;
+
+    @media (max-width: $bp-lg) {
+      padding: $space-lg;
+    }
+
+    .user-avatar-section {
+      text-align: center;
+      margin-bottom: $space-xl;
+
+      .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: $space-md;
+
+        img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 4px solid $primary;
+
+          @media (max-width: $bp-lg) {
+            width: 100px;
+            height: 100px;
+          }
+        }
+
+        .btn-change-avatar {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: $primary;
+          border: none;
+          color: $bg-primary;
+          cursor: pointer;
+          @include flex(center, center);
+          transition: $transition-fast;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      h2 {
+        font-size: $font-lg;
+        font-weight: 600;
+        margin-bottom: $space-xs;
+
+        @media (max-width: $bp-lg) {
+          font-size: $font-md;
+        }
+      }
+
+      .user-email {
+        color: $text-muted;
+        font-size: $font-sm;
+        margin-bottom: $space-sm;
+      }
+
+      .user-badges {
+        @include flex(center, center, $space-xs);
+        flex-wrap: wrap;
+      }
+    }
+
+    .user-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $space-md;
+      padding: $space-lg 0;
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      margin-bottom: $space-lg;
+
+      .stat-item {
+        @include flex(center, flex-start, $space-sm);
+
+        svg {
+          color: $primary;
+          font-size: $font-xl;
+        }
+
+        .stat-value {
+          font-size: $font-lg;
+          font-weight: 700;
+          color: $text-primary;
+        }
+
+        .stat-label {
+          font-size: $font-xs;
+          color: $text-muted;
+        }
+      }
+    }
+
+    .user-meta {
+      .meta-item {
+        @include flex(center, flex-start, $space-xs);
+        color: $text-muted;
+        font-size: $font-xs;
+        margin-bottom: $space-xs;
+
+        svg {
+          color: $text-tertiary;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Badges
+  .badge {
+    padding: $space-2xs $space-sm;
+    border-radius: 20px;
+    font-size: $font-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &.role-admin {
+      background: rgba($danger, 0.2);
+      color: lighten($danger, 20%);
+    }
+
+    &.role-moderator {
+      background: rgba($warning, 0.2);
+      color: lighten($warning, 20%);
+    }
+
+    &.role-customer {
+      background: rgba($success, 0.2);
+      color: lighten($success, 20%);
+    }
+
+    &.status-active {
+      background: rgba($success, 0.2);
+      color: lighten($success, 20%);
+    }
+
+    &.status-banned {
+      background: rgba($danger, 0.2);
+      color: lighten($danger, 20%);
+    }
+
+    &.status-inactive {
+      background: rgba($text-muted, 0.2);
+      color: $text-secondary;
+    }
+  }
+
+  // Edit Card
+  .user-edit-card {
+    @include card;
+    padding: $space-xl;
+
+    @media (max-width: $bp-lg) {
+      padding: $space-lg;
+    }
+
+    h3 {
+      font-size: $font-md;
+      font-weight: 600;
+      margin: 0 0 $space-lg 0;
+      color: $text-primary;
+
+      &.section-title {
+        margin-top: $space-xl;
+        padding-top: $space-xl;
+        border-top: 1px solid $border-color;
+      }
+    }
+  }
+
+  // Form Grid
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-lg;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: $space-md;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // Form Fields
+  .form-field {
+    label {
+      @include flex(center, flex-start, $space-xs);
+      font-size: $font-xs;
+      font-weight: 500;
+      color: $text-muted;
+      margin-bottom: $space-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      svg {
+        color: $primary;
+      }
+    }
+
+    input,
+    select {
+      @include input-base;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right $space-sm center;
+      padding-right: $space-xl;
+    }
+
+    .field-value {
+      padding: $space-sm 0;
+      color: $text-primary;
+      font-size: $font-sm;
+      border-bottom: 1px solid transparent;
+    }
+  }
+
+  // Orders Section
+  .user-orders-section {
+    @include card;
+    padding: $space-xl;
+
+    h3 {
+      font-size: $font-md;
+      font-weight: 600;
+      margin: 0 0 $space-lg 0;
+    }
+
+    .empty-state {
+      @include flex(center, center, $space-md, column);
+      padding: $space-3xl;
+      color: $text-muted;
+
+      svg {
+        color: $text-tertiary;
+      }
+    }
+  }
+
+  // Orders Table
+  .orders-table {
+    overflow-x: auto;
+    @include scrollbar;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        text-align: left;
+        padding: $space-sm $space-md;
+        font-size: $font-sm;
+
+        @media (max-width: $bp-sm) {
+          padding: $space-xs $space-sm;
+          font-size: $font-xs;
+        }
+      }
+
+      th {
+        color: $text-muted;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: $font-xs;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid $border-color;
+      }
+
+      td {
+        color: $text-primary;
+        border-bottom: 1px solid rgba($border-color, 0.5);
+      }
+
+      tr:hover td {
+        background: rgba($primary, 0.05);
+      }
+    }
+
+    .order-status {
+      padding: $space-2xs $space-sm;
+      border-radius: 20px;
+      font-size: $font-xs;
+      font-weight: 500;
+      text-transform: capitalize;
+
+      &.status-pending {
+        background: rgba($warning, 0.2);
+        color: $warning;
+      }
+
+      &.status-processing {
+        background: rgba($info, 0.2);
+        color: $info;
+      }
+
+      &.status-shipped {
+        background: rgba($secondary, 0.2);
+        color: $secondary;
+      }
+
+      &.status-delivered {
+        background: rgba($success, 0.2);
+        color: $success;
+      }
+
+      &.status-cancelled {
+        background: rgba($danger, 0.2);
+        color: $danger;
+      }
+    }
+
+    .btn-view {
+      padding: $space-xs $space-md;
+      background: transparent;
+      border: 1px solid $primary;
+      color: $primary;
+      border-radius: $radius-sm;
+      font-size: $font-xs;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      &:hover {
+        background: $primary;
+        color: $text-primary;
+      }
+    }
+  }
+}

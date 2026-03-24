@@ -1,0 +1,836 @@
+@import 'variables';
+@import 'mixins';
+@import 'layout';
+
+// ==========================================
+// SETTINGS PAGE - 100% Responsive Refactored
+// Mobile-First Approach with Progressive Enhancement
+// ==========================================
+
+.settings-page {
+  padding: $space-md;
+
+  @media (min-width: $bp-sm) {
+    padding: $space-lg;
+  }
+
+  @media (min-width: $bp-xl) {
+    padding: $space-xl;
+  }
+
+  // Header Section
+  .settings-header {
+    margin-bottom: $space-lg;
+
+    @media (min-width: $bp-md) {
+      margin-bottom: $space-xl;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin: 0 0 $space-xs 0;
+      color: $text-primary;
+    }
+
+    p {
+      color: $text-muted;
+      margin: 0;
+      font-size: $font-sm;
+
+      @media (min-width: $bp-md) {
+        font-size: $font-md;
+      }
+    }
+  }
+
+  // Main Layout - Mobile: Stack, Desktop: Sidebar + Content
+  .settings-layout {
+    display: flex;
+    flex-direction: column;
+    gap: $space-lg;
+
+    @media (min-width: $bp-lg) {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: $space-xl;
+      align-items: start;
+    }
+
+    @media (min-width: $bp-xl) {
+      grid-template-columns: 280px 1fr;
+      gap: $space-2xl;
+    }
+  }
+
+  // Tabs Sidebar - Mobile: Horizontal Scroll, Desktop: Sticky Sidebar
+  .settings-tabs {
+    @include card;
+    padding: $space-xs;
+    display: flex;
+    overflow-x: auto;
+    gap: $space-xs;
+    @include scrollbar;
+
+    @media (min-width: $bp-lg) {
+      flex-direction: column;
+      position: sticky;
+      top: calc(#{$navbar-height} + #{$space-lg});
+      height: fit-content;
+      overflow-x: visible;
+      overflow-y: auto;
+      max-height: calc(100vh - #{$navbar-height} - #{$space-xl});
+      padding: $space-sm;
+      gap: $space-2xs;
+    }
+
+    .tab-btn {
+      @include flex(center, flex-start, $space-sm);
+      flex-shrink: 0;
+      min-width: 140px;
+      padding: $space-sm $space-md;
+      background: transparent;
+      border: none;
+      border-radius: $radius-md;
+      color: $text-muted;
+      font-size: $font-sm;
+      cursor: pointer;
+      transition: $transition-fast;
+      position: relative;
+      min-height: 44px; // Touch-friendly
+
+      @media (min-width: $bp-sm) {
+        min-width: 160px;
+      }
+
+      @media (min-width: $bp-lg) {
+        width: 100%;
+        min-width: auto;
+        margin-bottom: $space-2xs;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &:hover {
+        background: rgba($primary, 0.05);
+        color: $text-primary;
+      }
+
+      &.active {
+        background: rgba($primary, 0.1);
+        color: $primary;
+
+        .arrow {
+          opacity: 1;
+        }
+      }
+
+      svg {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        flex: 1;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .arrow {
+        opacity: 0;
+        transition: opacity $transition-fast;
+        flex-shrink: 0;
+
+        @media (max-width: $bp-lg - 1px) {
+          display: none; // Hide arrows on mobile scroll
+        }
+      }
+    }
+  }
+
+  // Content Area
+  .settings-content {
+    @include card;
+    min-height: 400px;
+    padding: $space-md;
+
+    @media (min-width: $bp-sm) {
+      padding: $space-lg;
+      min-height: 500px;
+    }
+
+    @media (min-width: $bp-lg) {
+      min-height: 600px;
+      padding: $space-xl;
+    }
+
+    .loading-state {
+      @include flex(center, center, $space-md, column);
+      min-height: 300px;
+      color: $text-muted;
+
+      @media (min-width: $bp-sm) {
+        min-height: 400px;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid $border-color;
+        border-top-color: $primary;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+
+  // Settings Section
+  .settings-section {
+    h3 {
+      font-size: clamp(1rem, 2.5vw, 1.125rem);
+      font-weight: 600;
+      margin: $space-xl 0 $space-lg 0;
+      padding-bottom: $space-sm;
+      border-bottom: 1px solid $border-color;
+      color: $primary;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    // Form Grid - Mobile: 1 column, Tablet: 2 columns
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $space-md;
+      margin-bottom: $space-xl;
+
+      @media (min-width: $bp-sm) {
+        gap: $space-lg;
+      }
+
+      @media (min-width: $bp-md) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $space-lg;
+      }
+
+      .form-group {
+        &.full-width {
+          grid-column: 1 / -1;
+        }
+
+        &.indented {
+          margin-left: $space-md;
+          padding-left: $space-md;
+          border-left: 2px solid $border-color;
+
+          @media (min-width: $bp-sm) {
+            margin-left: $space-lg;
+            padding-left: $space-lg;
+          }
+
+          @media (min-width: $bp-md) {
+            margin-left: 40px;
+            padding-left: $space-lg;
+          }
+        }
+      }
+    }
+
+    // Form Groups
+    .form-group {
+      label {
+        display: block;
+        margin-bottom: $space-xs;
+        font-size: $font-xs;
+        font-weight: 500;
+        color: $text-primary;
+
+        &.required::after {
+          content: ' *';
+          color: $danger;
+        }
+      }
+
+      input,
+      select,
+      textarea {
+        @include input-base;
+        width: 100%;
+        min-height: 44px; // Touch-friendly
+        font-size: 16px; // Prevent zoom on iOS
+
+        @media (min-width: $bp-md) {
+          font-size: $font-md;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+
+        @media (min-width: $bp-md) {
+          min-height: 120px;
+        }
+      }
+
+      small {
+        display: block;
+        margin-top: $space-xs;
+        font-size: $font-xs;
+        color: $text-muted;
+        line-height: 1.4;
+      }
+
+      // Checkbox styling
+      &.checkbox {
+        label {
+          @include flex(center, flex-start, $space-sm);
+          cursor: pointer;
+          min-height: 44px; // Touch-friendly
+
+          input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            accent-color: $primary;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    // Image Uploads - Mobile: Stack, Desktop: Side by side
+    .image-uploads {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $space-lg;
+      margin-bottom: $space-xl;
+
+      @media (min-width: $bp-md) {
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .upload-box {
+        label {
+          display: block;
+          margin-bottom: $space-sm;
+          font-weight: 500;
+          font-size: $font-sm;
+        }
+
+        .upload-area {
+          border: 2px dashed $border-color;
+          border-radius: $radius-lg;
+          padding: $space-xl;
+          text-align: center;
+          cursor: pointer;
+          transition: $transition-fast;
+          min-height: 120px;
+          @include flex(center, center, $space-xs, column);
+
+          @media (min-width: $bp-sm) {
+            padding: $space-2xl;
+            min-height: 150px;
+          }
+
+          &:hover {
+            border-color: $primary;
+            background: rgba($primary, 0.02);
+          }
+
+          svg {
+            color: $text-muted;
+            margin-bottom: $space-sm;
+            width: 32px;
+            height: 32px;
+
+            @media (min-width: $bp-sm) {
+              width: 40px;
+              height: 40px;
+            }
+          }
+
+          span {
+            display: block;
+            font-size: $font-sm;
+            color: $text-primary;
+            margin-bottom: $space-xs;
+            font-weight: 500;
+          }
+
+          small {
+            font-size: $font-xs;
+            color: $text-muted;
+          }
+
+          img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+
+            @media (min-width: $bp-sm) {
+              max-height: 100px;
+            }
+          }
+
+          &.small {
+            padding: $space-lg;
+            min-height: 100px;
+
+            @media (min-width: $bp-sm) {
+              padding: $space-xl;
+              min-height: 120px;
+            }
+
+            svg {
+              width: 24px;
+              height: 24px;
+
+              @media (min-width: $bp-sm) {
+                width: 30px;
+                height: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Color Pickers - Mobile: Stack, Desktop: Side by side
+    .color-picker-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $space-lg;
+      margin-bottom: $space-lg;
+
+      @media (min-width: $bp-sm) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .color-picker {
+        label {
+          display: block;
+          margin-bottom: $space-sm;
+          font-size: $font-sm;
+          font-weight: 500;
+        }
+
+        .color-input {
+          @include flex(center, flex-start, $space-sm);
+
+          input[type="color"] {
+            width: 60px;
+            height: 45px;
+            padding: 3px;
+            border-radius: $radius-md;
+            cursor: pointer;
+            border: 1px solid $border-color;
+            background: $bg-tertiary;
+            min-height: 44px;
+          }
+
+          span {
+            font-family: monospace;
+            color: $text-muted;
+            font-size: $font-sm;
+          }
+        }
+      }
+    }
+
+    // Payment Methods
+    .payment-method {
+      border: 1px solid $border-color;
+      border-radius: $radius-lg;
+      margin-bottom: $space-lg;
+      overflow: hidden;
+
+      .method-header {
+        @include flex(center, space-between, $space-sm);
+        padding: $space-md;
+        background: $bg-tertiary;
+
+        @media (min-width: $bp-sm) {
+          padding: $space-lg;
+          gap: $space-md;
+        }
+
+        .method-info {
+          @include flex(center, flex-start, $space-sm);
+          min-width: 0;
+
+          @media (min-width: $bp-sm) {
+            gap: $space-md;
+          }
+
+          svg,
+          .paypal-icon,
+          .crypto-icon {
+            width: 36px;
+            height: 36px;
+            background: $bg-secondary;
+            border-radius: $radius-md;
+            @include flex(center, center);
+            font-size: 18px;
+            font-weight: bold;
+            flex-shrink: 0;
+
+            @media (min-width: $bp-sm) {
+              width: 40px;
+              height: 40px;
+              font-size: 20px;
+            }
+          }
+
+          .paypal-icon {
+            background: #003087;
+            color: white;
+          }
+
+          .crypto-icon {
+            background: #f7931a;
+            color: white;
+          }
+
+          div {
+            min-width: 0;
+
+            h4 {
+              margin: 0 0 $space-2xs 0;
+              font-size: $font-sm;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            p {
+              margin: 0;
+              font-size: $font-xs;
+              color: $text-muted;
+              display: none;
+
+              @media (min-width: $bp-sm) {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+
+      .method-config {
+        padding: $space-md;
+        border-top: 1px solid $border-color;
+
+        @media (min-width: $bp-sm) {
+          padding: $space-lg;
+        }
+
+        .form-group {
+          margin-bottom: $space-md;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        .secret-input {
+          position: relative;
+
+          input {
+            padding-right: 40px;
+          }
+        }
+
+        .btn-test {
+          @include flex(center, center, $space-xs);
+          width: 100%;
+          padding: $space-sm $space-md;
+          min-height: 44px;
+          background: transparent;
+          border: 1px solid $primary;
+          color: $primary;
+          border-radius: $radius-sm;
+          font-size: $font-sm;
+          cursor: pointer;
+          transition: $transition-fast;
+          margin-top: $space-sm;
+
+          @media (min-width: $bp-sm) {
+            width: auto;
+            margin-top: 0;
+          }
+
+          &:hover {
+            background: $primary;
+            color: $bg-primary;
+          }
+        }
+      }
+    }
+
+    // Shipping Preview
+    .shipping-preview {
+      margin-top: $space-xl;
+      padding: $space-md;
+      background: $bg-tertiary;
+      border-radius: $radius-md;
+
+      @media (min-width: $bp-sm) {
+        padding: $space-lg;
+      }
+
+      h4 {
+        margin: 0 0 $space-md 0;
+        font-size: $font-sm;
+      }
+
+      .preview-box {
+        .preview-row {
+          @include flex(center, space-between);
+          padding: $space-sm;
+          background: $bg-secondary;
+          border-radius: $radius-sm;
+          margin-bottom: $space-sm;
+          font-size: $font-sm;
+
+          @media (min-width: $bp-sm) {
+            font-size: $font-md;
+            padding: $space-md;
+          }
+
+          &.highlight {
+            border: 1px solid $success;
+          }
+
+          .free {
+            color: $success;
+            font-weight: 600;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    // Security & Notification Options
+    .security-option,
+    .notification-option {
+      @include flex(center, space-between, $space-sm);
+      padding: $space-md;
+      border: 1px solid $border-color;
+      border-radius: $radius-md;
+      margin-bottom: $space-md;
+      min-height: 60px;
+
+      @media (min-width: $bp-sm) {
+        padding: $space-lg;
+        gap: $space-md;
+      }
+
+      .option-info {
+        @include flex(center, flex-start, $space-sm);
+        min-width: 0;
+        flex: 1;
+
+        @media (min-width: $bp-sm) {
+          gap: $space-md;
+        }
+
+        svg {
+          color: $primary;
+          flex-shrink: 0;
+          width: 20px;
+          height: 20px;
+
+          @media (min-width: $bp-sm) {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        div {
+          min-width: 0;
+
+          h4 {
+            margin: 0 0 $space-2xs 0;
+            font-size: $font-sm;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          p {
+            margin: 0;
+            font-size: $font-xs;
+            color: $text-muted;
+            display: none;
+
+            @media (min-width: $bp-sm) {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .security-alert {
+      @include flex(center, flex-start, $space-sm);
+      padding: $space-md;
+      background: rgba($warning, 0.1);
+      border: 1px solid $warning;
+      border-radius: $radius-md;
+      color: $warning;
+      margin-top: $space-lg;
+      font-size: $font-sm;
+
+      @media (min-width: $bp-sm) {
+        padding: $space-md $space-lg;
+      }
+
+      p {
+        margin: 0;
+        font-size: $font-xs;
+        line-height: 1.5;
+
+        @media (min-width: $bp-sm) {
+          font-size: $font-sm;
+        }
+      }
+
+      svg {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+
+        @media (min-width: $bp-sm) {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  // Toggle Switch - Mobile optimized
+  .toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .slider {
+        background-color: $primary;
+
+        &:before {
+          transform: translateX(24px);
+        }
+      }
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $border-color;
+      border-radius: 26px;
+      transition: 0.3s;
+
+      &:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+    }
+  }
+
+  // Footer Actions
+  .settings-footer {
+    @include flex(center, stretch, $space-sm);
+    flex-direction: column;
+    margin-top: $space-xl;
+    padding-top: $space-lg;
+    border-top: 1px solid $border-color;
+
+    @media (min-width: $bp-sm) {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    button {
+      @include flex(center, center, $space-xs);
+      width: 100%;
+      padding: $space-sm $space-lg;
+      min-height: 44px; // Touch-friendly
+      border-radius: $radius-md;
+      font-size: $font-sm;
+      font-weight: 500;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      &.btn-secondary {
+        @include button-secondary;
+        order: 2;
+
+        @media (min-width: $bp-sm) {
+          order: 1;
+          width: auto;
+        }
+      }
+
+      &.btn-primary {
+        @include button-primary;
+        order: 1;
+
+        @media (min-width: $bp-sm) {
+          order: 2;
+          width: auto;
+        }
+
+        .spinner-sm {
+          width: 16px;
+          height: 16px;
+          border: 2px solid $bg-primary;
+          border-top-color: transparent;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+// Keyframe Animations
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
