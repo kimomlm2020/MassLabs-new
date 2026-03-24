@@ -66,7 +66,7 @@ import p_img60 from './p_img60.jpg'
 // ==========================================
 
 // Home Slider Images
-import Alexander from './Alexander.jpg'
+import alexander from './alexander.jpg'
 import ambitious from './ambitious.jpg'
 import karsten from './karsten.jpg'
 import victor from './victor.jpg'
@@ -115,7 +115,7 @@ export const assets = {
     
     // Home Slider
     hero: {
-        Alexander,
+        alexander,
         ambitious,
         karsten,
         victor
@@ -168,7 +168,7 @@ export {
     stripe_logo,
     
     // Home Slider
-    Alexander,
+    alexander,
     ambitious,
     karsten,
     victor,
