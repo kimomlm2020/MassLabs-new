@@ -1,6 +1,5 @@
 // ShopContext.jsx
 import React, { createContext, useEffect, useState, useCallback, useMemo, useRef } from "react";
-import { products as localProducts } from '../assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -54,8 +53,10 @@ const ShopContextProvider = (props) => {
         throw new Error(response.data.message || 'Failed to fetch products');
       }
     } catch (error) {
-      toast.error('Failed to load products. Using local data.');
-      setProducts(prev => prev.length === 0 ? localProducts : prev);
+      toast.error('Failed to load products. Please try again later.');
+      // Removed reference to undefined localProducts
+      // Products array will remain empty until successful fetch
+      setIsBackendReady(false);
     } finally {
       setIsLoading(false);
     }
