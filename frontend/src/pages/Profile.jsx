@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import '../styles/Profile.scss';
+import '../styles/Profile.css';
 
 const Profile = () => {
   const { token, user, setUser, logout, navigate, api, backendUrl } = useContext(ShopContext);

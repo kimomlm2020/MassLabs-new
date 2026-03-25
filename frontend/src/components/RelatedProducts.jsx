@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
-import '../styles/RelatedProducts.scss';
+import '../styles/RelatedProducts.css';
 
 const RelatedProducts = ({ category, subCategory, currentProductId }) => {
     const { products, currency, addToCart, cartItems } = useContext(ShopContext);

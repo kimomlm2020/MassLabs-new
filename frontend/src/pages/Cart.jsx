@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { ShopContext } from '../context/ShopContext'
-import { assets } from '../assets/assets';
-import '../styles/Cart.scss';
+import '../styles/Cart.css';
 
 // ✅ CONSTANTES DE LIVRAISON
 const SHIPPING_COST = 30;
@@ -17,7 +16,7 @@ const Cart = () => {
     removeFromCart,
     clearCart,
     navigate,
-    getCartCount // ✅ Ajouté pour forcer le re-render
+    getCartCount 
   } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);

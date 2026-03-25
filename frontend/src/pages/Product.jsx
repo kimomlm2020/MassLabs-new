@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RelatedProducts from '../components/RelatedProducts';
-import '../styles/Product.scss';
+import '../styles/Product.css';
 
 // Mock reviews for local mode
 const MOCK_REVIEWS = [

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { ShopContext } from '../context/ShopContext';
 import ProductItem from '../components/ProductItem';
-import '../styles/Home.scss';
+import '../styles/Home.css';
 
 // ==================== REUSABLE COMPONENTS ====================
 const ImageWithFallback = ({ src, fallback, alt, className, loading = 'lazy', ...props }) => {
@@ -31,7 +31,7 @@ const ImageWithFallback = ({ src, fallback, alt, className, loading = 'lazy', ..
 
 // ==================== STATIC DATA (Pas de hooks ici) ====================
 const sliderImages = [
-  assets.hero.Alexander,
+  assets.hero.alexander,
   assets.hero.ambitious,
   assets.hero.karsten,
   assets.hero.victor
@@ -331,7 +331,7 @@ const categoryData = {
 
 // Fallback images using existing assets
 const fallbackImages = {
-  hero: assets.hero.Alexander,
+  hero: assets.hero.alexander,
   feature: assets.features.quality_lab,
   product: assets.sarms_types.RAD_140,
   avatar: assets.testimonials.avatar1,

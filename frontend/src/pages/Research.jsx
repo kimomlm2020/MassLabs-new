@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Research.scss';
+import '../styles/Research.css';
 
 const Research = () => {
   const studies = [

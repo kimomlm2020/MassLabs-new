@@ -17,7 +17,7 @@ import {
   Info,
   Loader2
 } from 'lucide-react';
-import '../styles/Footer.scss';
+import '../styles/Footer.css';
 import { assets } from '../assets/assets';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';

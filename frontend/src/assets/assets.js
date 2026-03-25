@@ -66,7 +66,7 @@ import p_img60 from './p_img60.jpg'
 // ==========================================
 
 // Home Slider Images
-import Alexander from './Alexander.jpg'
+import alexander from './alexander.jpg'
 import ambitious from './ambitious.jpg'
 import karsten from './karsten.jpg'
 import victor from './victor.jpg'
@@ -83,9 +83,9 @@ import secure_payment from './secure_payment.png'
 // Types of SARMs
 import lgd4033 from './LGD_4033.png'
 import mk677 from './mk677.png'
-import MK_2866 from './MK_2866.jpg'
-import RAD_140 from './RAD_140.jpg'
-import s23 from './s23.jpg'
+import MK_2866 from './MK_2866.png'
+import RAD_140 from './RAD_140.png'
+import s23 from './s23.png'
 import YK_11 from './YK_11.png'
 
 // Contact & About Pages
@@ -115,7 +115,7 @@ export const assets = {
     
     // Home Slider
     hero: {
-        Alexander,
+        alexander,
         ambitious,
         karsten,
         victor
@@ -168,7 +168,7 @@ export {
     stripe_logo,
     
     // Home Slider
-    Alexander,
+    alexander,
     ambitious,
     karsten,
     victor,

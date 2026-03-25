@@ -14,7 +14,7 @@ const VerifyOrder = () => {
 
   const success = searchParams.get('success');
   const orderId = searchParams.get('orderId');
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
   const token = localStorage.getItem('token');
 
   useEffect(() => {

@@ -13,7 +13,7 @@ import subscriberRouter from './routes/subscriberRoute.js';
 import emailRoutes from './routes/emailRoutes.js';
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 connectDB().then(() => {
   console.log('DB Connected');

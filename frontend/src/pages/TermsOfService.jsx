@@ -1,6 +1,6 @@
 // pages/TermsOfService.jsx
 import React from 'react';
-import '../styles/PolicyPages.scss';
+import '../styles/PolicyPages.css';
 
 const TermsOfService = () => {
   return (

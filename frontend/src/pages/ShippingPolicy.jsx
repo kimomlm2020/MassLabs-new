@@ -1,6 +1,6 @@
 // pages/ShippingPolicy.jsx
 import React from 'react';
-import '../styles/PolicyPages.scss';
+import '../styles/PolicyPages.css';
 
 const ShippingPolicy = () => {
   return (

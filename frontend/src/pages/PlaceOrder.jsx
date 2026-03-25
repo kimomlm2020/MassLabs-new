@@ -5,7 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import '../styles/PlaceOrder.scss';
+import '../styles/PlaceOrder.css';
 
 const COUNTRIES = [
   { code: 'FR', name: 'France' },

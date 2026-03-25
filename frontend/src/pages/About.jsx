@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
-import '../styles/About.scss'
+import '../styles/About.css'
 
 const About = () => {
   // Safety check for assets to prevent runtime errors

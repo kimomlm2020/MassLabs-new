@@ -7,7 +7,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { toast } from 'react-toastify';
-import '../styles/Orders.scss';
+import '../styles/Orders.css';
 
 const PAYMENT_METHOD_NAMES = {
   stripe: 'Stripe',

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { toast } from 'react-toastify';
 import { ShopContext } from '../context/ShopContext';
-import '../styles/Shop.scss';
+import '../styles/Shop.css';
 import '../assets/assets'
 
 // Icons as components

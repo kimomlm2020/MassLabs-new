@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import '../styles/Navbar.scss';
+import '../styles/Navbar.css';
 import { assets } from '../assets/assets';
 import { toast } from 'react-toastify';
 import { ShopContext } from '../context/ShopContext';

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios'; // ✅ Import standard d'axios
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import '../styles/Login.scss';
+import '../styles/Login.css';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

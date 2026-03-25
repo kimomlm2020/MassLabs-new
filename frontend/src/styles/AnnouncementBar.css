@@ -1,0 +1,39 @@
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.announcement-bar {
+  position: sticky;
+  top: 80px; /* Fallback for var(--navbar-height, 80px) */
+  left: 0;
+  width: 100%;
+  background: #0e0e11;
+  border-bottom: 1px solid #f39c12;
+  overflow: hidden;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+}
+
+.announcement-bar__track {
+  display: flex;
+  animation: scrollText 25s linear infinite;
+  white-space: nowrap;
+}
+
+.announcement-bar__track:hover {
+  animation-play-state: paused;
+}
+
+.announcement-bar__content {
+  color: #f39c12;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 2rem;
+  flex-shrink: 0;
+}

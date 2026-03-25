@@ -1,0 +1,572 @@
+/* ==================== POLICY PAGES - DARK/GOLD THEME ==================== */
+
+/* ==========================================
+   BASE STYLES
+   ========================================== */
+.policy-page {
+  min-height: 100vh;
+  background: #050505;
+  color: #e0e0e0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px);
+}
+
+@media (max-width: 480px) {
+  .policy-page {
+    padding: clamp(100px, 6vw, 40px) clamp(12px, 3vw, 16px);
+  }
+}
+
+.policy-container {
+  max-width: min(900px, 95%);
+  margin: 0 auto;
+  background: #111111;
+  border: 1px solid #1a1a1a;
+  border-radius: 20px;
+  padding: clamp(30px, 6vw, 60px);
+}
+
+@media (max-width: 480px) {
+  .policy-container {
+    padding: clamp(20px, 5vw, 30px);
+    border-radius: 12px;
+  }
+}
+
+.policy-container h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #e4ce55f8 0%, #FFED4E 50%, #C9A227);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.policy-container .last-updated {
+  color: #a0a0a0;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  margin-bottom: clamp(30px, 5vw, 40px);
+  padding-bottom: clamp(20px, 4vw, 30px);
+  border-bottom: 1px solid #1a1a1a;
+}
+
+/* ==========================================
+   SECTIONS
+   ========================================== */
+section {
+  margin-bottom: clamp(30px, 5vw, 40px);
+}
+
+section:last-of-type {
+  margin-bottom: 0;
+}
+
+section h2 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: clamp(15px, 3vw, 20px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  section h2 {
+    flex-wrap: wrap;
+  }
+}
+
+section h3 {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  color: #FFED4E;
+  margin: clamp(20px, 4vw, 25px) 0 clamp(12px, 2vw, 15px);
+}
+
+section h4 {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: clamp(8px, 2vw, 12px);
+}
+
+section p {
+  color: #a0a0a0;
+  line-height: 1.8;
+  margin-bottom: clamp(15px, 3vw, 20px);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+section p strong {
+  color: #e0e0e0;
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: clamp(15px, 3vw, 20px);
+}
+
+section ul li {
+  position: relative;
+  padding-left: clamp(25px, 5vw, 30px);
+  margin-bottom: clamp(10px, 2vw, 12px);
+  color: #a0a0a0;
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+section ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #FFD700;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+section a {
+  color: #FFD700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+section a:hover {
+  border-bottom-color: #FFD700;
+}
+
+/* ==========================================
+   HIGHLIGHT BOXES
+   ========================================== */
+.highlight-box {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: clamp(20px, 4vw, 30px);
+  margin-bottom: clamp(30px, 5vw, 40px);
+}
+
+.highlight-box h2 {
+  margin-top: 0;
+  color: #FFED4E;
+}
+
+.highlight-box p {
+  margin-bottom: 0;
+}
+
+.highlight-box.warning {
+  background: rgba(255, 71, 87, 0.05);
+  border-color: rgba(255, 71, 87, 0.3);
+}
+
+.highlight-box.warning h2 {
+  color: #ff4757;
+}
+
+/* ==========================================
+   SHIPPING TABLE
+   ========================================== */
+.shipping-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: clamp(20px, 4vw, 25px) 0;
+}
+
+.shipping-table .shipping-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+  gap: clamp(10px, 2vw, 15px);
+  padding: clamp(12px, 2.5vw, 16px) clamp(15px, 3vw, 20px);
+  border-bottom: 1px solid #1a1a1a;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .shipping-table .shipping-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shipping-table .shipping-row {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+}
+
+.shipping-table .shipping-row:last-child {
+  border-bottom: none;
+}
+
+.shipping-table .shipping-row.header {
+  background: rgba(255, 215, 0, 0.1);
+  font-weight: 700;
+  color: #FFD700;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+@media (max-width: 768px) {
+  .shipping-table .shipping-row.header {
+    display: none;
+  }
+}
+
+.shipping-table .shipping-row:not(.header) {
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: #a0a0a0;
+}
+
+.shipping-table .shipping-row:not(.header) span:first-child {
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .shipping-table .shipping-row:not(.header) span::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    color: #FFD700;
+    margin-bottom: 4px;
+  }
+}
+
+/* ==========================================
+   PROCESS STEPS
+   ========================================== */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(15px, 3vw, 20px);
+  margin: clamp(25px, 5vw, 30px) 0;
+}
+
+@media (max-width: 768px) {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.process-steps .step {
+  background: #050505;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  padding: clamp(20px, 4vw, 25px);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.process-steps .step:hover {
+  border-color: #FFD700;
+  transform: translateY(-3px);
+}
+
+.process-steps .step .step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #e4ce55f8 0%, #FFED4E 50%, #C9A227);
+  color: #0a0a0a;
+  font-weight: 800;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+}
+
+.process-steps .step h4 {
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+.process-steps .step p {
+  font-size: clamp(0.85rem, 2vw, 0.9rem);
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   POLICY TABLE
+   ========================================== */
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: clamp(20px, 4vw, 25px) 0;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+@media (max-width: 480px) {
+  .policy-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .policy-table thead {
+    display: none;
+  }
+}
+
+.policy-table thead tr {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.policy-table thead th {
+  padding: clamp(12px, 2.5vw, 15px);
+  text-align: left;
+  color: #FFD700;
+  font-weight: 700;
+  border-bottom: 2px solid #1a1a1a;
+}
+
+.policy-table tbody tr {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+@media (max-width: 480px) {
+  .policy-table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 15px;
+  }
+}
+
+.policy-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.policy-table tbody td {
+  padding: clamp(12px, 2.5vw, 15px);
+  color: #a0a0a0;
+}
+
+@media (max-width: 480px) {
+  .policy-table tbody td {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.5);
+  }
+  
+  .policy-table tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  .policy-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    color: #FFD700;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+}
+
+.policy-table tbody td:first-child {
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+/* ==========================================
+   CONTACT SECTION
+   ========================================== */
+.contact-section {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: clamp(25px, 5vw, 30px);
+  margin-top: clamp(40px, 6vw, 50px);
+}
+
+.contact-section h2 {
+  margin-top: 0;
+}
+
+.contact-section p {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+@media print {
+  .policy-page {
+    background: white;
+    color: black;
+    padding: 20px;
+  }
+  
+  .policy-page .policy-container {
+    border: 1px solid #ccc;
+    max-width: 100%;
+  }
+  
+  .policy-page h1,
+  .policy-page h2,
+  .policy-page h3 {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+    background: none !important;
+  }
+  
+  .highlight-box,
+  .contact-section {
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+  }
+  
+  .process-steps .step,
+  .shipping-table .shipping-row {
+    break-inside: avoid;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .process-steps .step:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================
+   FOCUS VISIBLE
+   ========================================== */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   EXTRA SMALL SCREENS (Under 360px)
+   ========================================== */
+@media (max-width: 360px) {
+  .policy-page {
+    padding: clamp(100px, 8vw, 120px) clamp(8px, 2vw, 12px);
+  }
+  
+  .policy-container {
+    padding: 15px;
+  }
+  
+  section h2 {
+    font-size: 1.1rem;
+  }
+  
+  section h3 {
+    font-size: 1rem;
+  }
+  
+  .shipping-table .shipping-row {
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .process-steps .step {
+    padding: 15px;
+  }
+  
+  .process-steps .step .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================
+   LANDSCAPE MODE ON MOBILE
+   ========================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .policy-page {
+    padding: clamp(80px, 8vw, 100px) clamp(16px, 4vw, 40px);
+  }
+  
+  .policy-container {
+    padding: clamp(20px, 4vw, 30px);
+  }
+  
+  .process-steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .process-steps .step {
+    padding: 15px;
+  }
+}
+
+/* ==========================================
+   DARK MODE SUPPORT
+   ========================================== */
+@media (prefers-color-scheme: dark) {
+  .policy-page {
+    background: #050505;
+  }
+}
+
+/* ==========================================
+   HIGH CONTRAST MODE
+   ========================================== */
+@media (prefers-contrast: high) {
+  .policy-container {
+    border-width: 2px;
+  }
+  
+  .highlight-box,
+  .contact-section {
+    border-width: 2px;
+  }
+  
+  section a {
+    text-decoration: underline;
+  }
+}
+
+/* ==========================================
+   CUSTOM SCROLLBAR (Optional)
+   ========================================== */
+.policy-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.policy-container::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.policy-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 4px;
+}
+
+.policy-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}

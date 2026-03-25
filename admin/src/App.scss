@@ -1,22 +1,22 @@
 
 // 1. Variables (doit être en premier)
-@import './styles/variables';
+@import './styles/_variables';
 
 // 2. Mixins (dépend des variables)
-@import './styles/mixins';
+@import './styles/_mixins';
 
 // 3. Layout de base (sidebar, navbar, structure)
-@import './styles/layout';
+@import './styles/_layout';
 
 // 4. Pages spécifiques
-@import './styles/dashboard';
-@import './styles/orders';
+@import './styles/Dashboard';
+@import './styles/Orders';
 @import './styles/OrderDetails';
-@import './styles/products';
+@import './styles/Products';
 @import './styles/ProductForm';
-@import './styles/users';
+@import './styles/Users';
 @import './styles/UserDetails';
-@import './styles/settings';
+@import './styles/Settings';
 // ==========================================
 // STYLES GLOBAUX SUPPLÉMENTAIRES
 // ==========================================

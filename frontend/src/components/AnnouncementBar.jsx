@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/AnnouncementBar.scss';
+import '../styles/AnnouncementBar.css';
 
 const AnnouncementBar = () => {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/Contact.scss';
+import '../styles/Contact.css';
 import { assets } from '../assets/assets';
 import { useEmailService } from '../hook/useEmailService';
 import { toast } from 'react-toastify';
